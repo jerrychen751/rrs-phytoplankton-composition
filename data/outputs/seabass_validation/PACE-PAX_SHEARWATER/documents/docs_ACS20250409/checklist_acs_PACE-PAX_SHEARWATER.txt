@@ -1,0 +1,48 @@
+SeaBASS Submission Checklist: Spectral Absorption and Attenuation Data (AC-S data)
+
+Use this checklist to ensure that your submission includes the following information within your data files, metadata headers, and external documents, or calibration files, as appropriate.
+
+Please also fill in and submit this checklist itself with brief answers (or yes/no/NA). Rename the checklist to be specific to your submission, e.g., checklist_acs_EXPERIMENT_mycruise.txt
+
+Experiment Name
+PACE-PAX
+___________________________________
+
+Cruise Name
+PACE-PAX_SHEARWATER
+___________________________________
+
+1.) For all files, provide:
+
+a.) Device file used for data processing (*.dev). ACS10320240621.DEV
+
+b.) Source of temperature & salinity dependencies (e.g., Sullivan et al 2006).  Sullivan et al 2006
+
+c.) Reference temperature used (either from device file or arbitrary). 20 C
+
+d.) Pure Water offsets used, with description of method. Daily Pure Water offsets measured, PACEPAX_SHEARWATER_report.docx
+
+e.) CTD data collected simultaneously. SBE45 TSG
+
+f.) Include the actual calibration data as part of your submission. dcal[256-270].cor
+
+
+2.) If reporting agp and/or ap
+
+a.) Include scattering correction used, with description of method. Pure Water offsets Zaneveld et al 1992 Baseline, agp,cgp/ap,cp Zaneveld et al 1992 Proportional. PACEPAX_SHEARWATER_report.docx
+
+b.) Provide an extra version of your files that have only been temperature, salinity, and pure water corrected. Preserve them as a tar bundle (the SeaBASS team can provide assistance) and refer to the file name using the metadata header associated archive (/associated_archives=EXPERIMENT_CRUISE_Ac-s_OnlyTScorrected.tgz). Associated files will be linked to your main file that should have the scatter-correct data. The header  /associated_archives should be accompanied by the header /associated_archive_types=metadata 
+
+
+3.) If reporting binned data, include:
+
+a.) Number of observations per bin (e.g., include the field bincount) Yes		
+
+b.) Some measure of uncertainty (e.g., include fields for _sd or another metric) Yes, e.g. apg###_sd
+	
+c.) Report the method of averaging the bins (e.g., type of mean, or median). Median. 
+
+
+4.) If reporting filtered data,
+
+a.) Report the pore size of the filter. 0.2um for ag + ap = agp. 

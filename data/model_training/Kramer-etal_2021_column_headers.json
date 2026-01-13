@@ -1,0 +1,3356 @@
+{
+  "total_columns": 336,
+  "columns": [
+    {
+      "column_name": "Campaign",
+      "column_index": 0,
+      "variable_type": "metadata",
+      "description": "Campaign identifier"
+    },
+    {
+      "column_name": "URL ref",
+      "column_index": 1,
+      "variable_type": "measurement",
+      "full_description": "Uniform resource locator/link to reference (URL ref)",
+      "name": "Uniform resource locator/link to reference",
+      "short_name": "URL ref",
+      "unit": "",
+      "method_device": "",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "PI",
+      "column_index": 2,
+      "variable_type": "measurement",
+      "full_description": "Principal investigator (PI)",
+      "name": "Principal investigator",
+      "short_name": "PI",
+      "unit": "",
+      "method_device": "",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Date/Time",
+      "column_index": 3,
+      "variable_type": "geocode",
+      "full_description": "DATE/TIME (Date/Time)",
+      "name": "DATE/TIME",
+      "short_name": "Date/Time",
+      "unit": "",
+      "method_device": "",
+      "comment": "",
+      "is_geocode": true,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Latitude",
+      "column_index": 4,
+      "variable_type": "geocode",
+      "full_description": "LATITUDE (Latitude)",
+      "name": "LATITUDE",
+      "short_name": "Latitude",
+      "unit": "",
+      "method_device": "",
+      "comment": "",
+      "is_geocode": true,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Longitude",
+      "column_index": 5,
+      "variable_type": "geocode",
+      "full_description": "LONGITUDE (Longitude)",
+      "name": "LONGITUDE",
+      "short_name": "Longitude",
+      "unit": "",
+      "method_device": "",
+      "comment": "",
+      "is_geocode": true,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Depth water [m] (min)",
+      "column_index": 6,
+      "variable_type": "geocode",
+      "full_description": "DEPTH, water [m] (Depth water)",
+      "name": "DEPTH, water",
+      "short_name": "Depth water",
+      "unit": "m",
+      "method_device": "",
+      "comment": "max",
+      "is_geocode": true,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Depth water [m] (max)",
+      "column_index": 7,
+      "variable_type": "geocode",
+      "full_description": "DEPTH, water [m] (Depth water)",
+      "name": "DEPTH, water",
+      "short_name": "Depth water",
+      "unit": "m",
+      "method_device": "",
+      "comment": "max",
+      "is_geocode": true,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "TChl a [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 8,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyll a, total [µg/l] (TChl a)",
+      "name": "Chlorophyll a, total",
+      "short_name": "TChl a",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "TChl a",
+      "description": "Phytoplankton pigment concentration: TChl a"
+    },
+    {
+      "column_name": "Chl b + DV Chl b [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 9,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyll b + divinyl chlorophyll b [µg/l] (Chl b + DV Chl b)",
+      "name": "Chlorophyll b + divinyl chlorophyll b",
+      "short_name": "Chl b + DV Chl b",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Chl b + DV Chl b",
+      "description": "Phytoplankton pigment concentration: Chl b + DV Chl b"
+    },
+    {
+      "column_name": "Chl c1+c2+c3 [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 10,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyll c1+c2+c3 [µg/l] (Chl c1+c2+c3)",
+      "name": "Chlorophyll c1+c2+c3",
+      "short_name": "Chl c1+c2+c3",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Chl c1+c2+c3",
+      "description": "Phytoplankton pigment concentration: Chl c1+c2+c3"
+    },
+    {
+      "column_name": "a-Car + b-Car [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 11,
+      "variable_type": "pigment",
+      "full_description": "alpha-Carotene + beta-Carotene [µg/l] (a-Car + b-Car)",
+      "name": "alpha-Carotene + beta-Carotene",
+      "short_name": "a-Car + b-Car",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "a-Car + b-Car",
+      "description": "Phytoplankton pigment concentration: a-Car + b-Car"
+    },
+    {
+      "column_name": "But-fuco [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 12,
+      "variable_type": "pigment",
+      "full_description": "19-Butanoyloxyfucoxanthin [µg/l] (But-fuco)",
+      "name": "19-Butanoyloxyfucoxanthin",
+      "short_name": "But-fuco",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "But-fuco",
+      "description": "Phytoplankton pigment concentration: But-fuco"
+    },
+    {
+      "column_name": "Hex-fuco [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 13,
+      "variable_type": "pigment",
+      "full_description": "19-Hexanoyloxyfucoxanthin [µg/l] (Hex-fuco)",
+      "name": "19-Hexanoyloxyfucoxanthin",
+      "short_name": "Hex-fuco",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Hex-fuco",
+      "description": "Phytoplankton pigment concentration: Hex-fuco"
+    },
+    {
+      "column_name": "Allo [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 14,
+      "variable_type": "pigment",
+      "full_description": "Alloxanthin [µg/l] (Allo)",
+      "name": "Alloxanthin",
+      "short_name": "Allo",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Allo",
+      "description": "Phytoplankton pigment concentration: Allo"
+    },
+    {
+      "column_name": "Diadino [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 15,
+      "variable_type": "pigment",
+      "full_description": "Diadinoxanthin [µg/l] (Diadino)",
+      "name": "Diadinoxanthin",
+      "short_name": "Diadino",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Diadino",
+      "description": "Phytoplankton pigment concentration: Diadino"
+    },
+    {
+      "column_name": "Diato [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 16,
+      "variable_type": "pigment",
+      "full_description": "Diatoxanthin [µg/l] (Diato)",
+      "name": "Diatoxanthin",
+      "short_name": "Diato",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Diato",
+      "description": "Phytoplankton pigment concentration: Diato"
+    },
+    {
+      "column_name": "Fuco [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 17,
+      "variable_type": "pigment",
+      "full_description": "Fucoxanthin [µg/l] (Fuco)",
+      "name": "Fucoxanthin",
+      "short_name": "Fuco",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Fuco",
+      "description": "Phytoplankton pigment concentration: Fuco"
+    },
+    {
+      "column_name": "Perid [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 18,
+      "variable_type": "pigment",
+      "full_description": "Peridinin [µg/l] (Perid)",
+      "name": "Peridinin",
+      "short_name": "Perid",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Perid",
+      "description": "Phytoplankton pigment concentration: Perid"
+    },
+    {
+      "column_name": "Zea [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 19,
+      "variable_type": "pigment",
+      "full_description": "Zeaxanthin [µg/l] (Zea)",
+      "name": "Zeaxanthin",
+      "short_name": "Zea",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Zea",
+      "description": "Phytoplankton pigment concentration: Zea"
+    },
+    {
+      "column_name": "MV chl a [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 20,
+      "variable_type": "pigment",
+      "full_description": "Monovinyl chlorophyll a [µg/l] (MV chl a)",
+      "name": "Monovinyl chlorophyll a",
+      "short_name": "MV chl a",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "MV chl a",
+      "description": "Phytoplankton pigment concentration: MV chl a"
+    },
+    {
+      "column_name": "DV chl a [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 21,
+      "variable_type": "pigment",
+      "full_description": "Divinyl chlorophyll a [µg/l] (DV chl a)",
+      "name": "Divinyl chlorophyll a",
+      "short_name": "DV chl a",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "DV chl a",
+      "description": "Phytoplankton pigment concentration: DV chl a"
+    },
+    {
+      "column_name": "Chlide a [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 22,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyllide a [µg/l] (Chlide a)",
+      "name": "Chlorophyllide a",
+      "short_name": "Chlide a",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Chlide a",
+      "description": "Phytoplankton pigment concentration: Chlide a"
+    },
+    {
+      "column_name": "MV chl b [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 23,
+      "variable_type": "pigment",
+      "full_description": "Monovinyl chlorophyll b [µg/l] (MV chl b)",
+      "name": "Monovinyl chlorophyll b",
+      "short_name": "MV chl b",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "MV chl b",
+      "description": "Phytoplankton pigment concentration: MV chl b"
+    },
+    {
+      "column_name": "DV chl b [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 24,
+      "variable_type": "pigment",
+      "full_description": "Divinyl chlorophyll b [µg/l] (DV chl b)",
+      "name": "Divinyl chlorophyll b",
+      "short_name": "DV chl b",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "DV chl b",
+      "description": "Phytoplankton pigment concentration: DV chl b"
+    },
+    {
+      "column_name": "Chl c1+c2 [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 25,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyll c1+c2 [µg/l] (Chl c1+c2)",
+      "name": "Chlorophyll c1+c2",
+      "short_name": "Chl c1+c2",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Chl c1+c2",
+      "description": "Phytoplankton pigment concentration: Chl c1+c2"
+    },
+    {
+      "column_name": "Chl c3 [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 26,
+      "variable_type": "pigment",
+      "full_description": "Chlorophyll c3 [µg/l] (Chl c3)",
+      "name": "Chlorophyll c3",
+      "short_name": "Chl c3",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Chl c3",
+      "description": "Phytoplankton pigment concentration: Chl c3"
+    },
+    {
+      "column_name": "Lut [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 27,
+      "variable_type": "pigment",
+      "full_description": "Lutein [µg/l] (Lut)",
+      "name": "Lutein",
+      "short_name": "Lut",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Lut",
+      "description": "Phytoplankton pigment concentration: Lut"
+    },
+    {
+      "column_name": "Neo [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 28,
+      "variable_type": "pigment",
+      "full_description": "Neoxanthin [µg/l] (Neo)",
+      "name": "Neoxanthin",
+      "short_name": "Neo",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Neo",
+      "description": "Phytoplankton pigment concentration: Neo"
+    },
+    {
+      "column_name": "Viola [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 29,
+      "variable_type": "pigment",
+      "full_description": "Violaxanthin [µg/l] (Viola)",
+      "name": "Violaxanthin",
+      "short_name": "Viola",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Viola",
+      "description": "Phytoplankton pigment concentration: Viola"
+    },
+    {
+      "column_name": "Phaeophytin [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 30,
+      "variable_type": "pigment",
+      "full_description": "Phaeophytin [µg/l] (Phaeophytin)",
+      "name": "Phaeophytin",
+      "short_name": "Phaeophytin",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Phaeophytin",
+      "description": "Phytoplankton pigment concentration: Phaeophytin"
+    },
+    {
+      "column_name": "Phaeopho a [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 31,
+      "variable_type": "pigment",
+      "full_description": "Phaeophorbide a [µg/l] (Phaeopho a)",
+      "name": "Phaeophorbide a",
+      "short_name": "Phaeopho a",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Phaeopho a",
+      "description": "Phytoplankton pigment concentration: Phaeopho a"
+    },
+    {
+      "column_name": "Pras [µg/l] (High Performance Liquid Chrom...)",
+      "column_index": 32,
+      "variable_type": "pigment",
+      "full_description": "Prasinoxanthin [µg/l] (Pras)",
+      "name": "Prasinoxanthin",
+      "short_name": "Pras",
+      "unit": "µg/l",
+      "method_device": "High Performance Liquid Chromatography (HPLC) (URI: https://en.wikipedia.org/wiki/High-performance_liquid_chromatography)",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      },
+      "pigment_name": "Pras",
+      "description": "Phytoplankton pigment concentration: Pras"
+    },
+    {
+      "column_name": "Temp [°C] (CTD)",
+      "column_index": 33,
+      "variable_type": "measurement",
+      "full_description": "Temperature, water [°C] (Temp)",
+      "name": "Temperature, water",
+      "short_name": "Temp",
+      "unit": "°C",
+      "method_device": "CTD",
+      "comment": "",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Sal (PSU, CTD)",
+      "column_index": 34,
+      "variable_type": "measurement",
+      "full_description": "Salinity (Sal)",
+      "name": "Salinity",
+      "short_name": "Sal",
+      "unit": "",
+      "method_device": "CTD",
+      "comment": "PSU",
+      "is_geocode": false,
+      "principal_investigator": {
+        "name": "Kramer, Sasha Jane",
+        "orcid": "0000-0002-9944-6779",
+        "email": "sasha.kramer@lifesci.ucsb.edu"
+      }
+    },
+    {
+      "column_name": "Rrs_400 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 35,
+      "wavelength_nm": 400,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 400 nm"
+    },
+    {
+      "column_name": "Rrs_401 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 36,
+      "wavelength_nm": 401,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 401 nm"
+    },
+    {
+      "column_name": "Rrs_402 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 37,
+      "wavelength_nm": 402,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 402 nm"
+    },
+    {
+      "column_name": "Rrs_403 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 38,
+      "wavelength_nm": 403,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 403 nm"
+    },
+    {
+      "column_name": "Rrs_404 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 39,
+      "wavelength_nm": 404,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 404 nm"
+    },
+    {
+      "column_name": "Rrs_405 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 40,
+      "wavelength_nm": 405,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 405 nm"
+    },
+    {
+      "column_name": "Rrs_406 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 41,
+      "wavelength_nm": 406,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 406 nm"
+    },
+    {
+      "column_name": "Rrs_407 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 42,
+      "wavelength_nm": 407,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 407 nm"
+    },
+    {
+      "column_name": "Rrs_408 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 43,
+      "wavelength_nm": 408,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 408 nm"
+    },
+    {
+      "column_name": "Rrs_409 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 44,
+      "wavelength_nm": 409,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 409 nm"
+    },
+    {
+      "column_name": "Rrs_410 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 45,
+      "wavelength_nm": 410,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 410 nm"
+    },
+    {
+      "column_name": "Rrs_411 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 46,
+      "wavelength_nm": 411,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 411 nm"
+    },
+    {
+      "column_name": "Rrs_412 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 47,
+      "wavelength_nm": 412,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 412 nm"
+    },
+    {
+      "column_name": "Rrs_413 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 48,
+      "wavelength_nm": 413,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 413 nm"
+    },
+    {
+      "column_name": "Rrs_414 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 49,
+      "wavelength_nm": 414,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 414 nm"
+    },
+    {
+      "column_name": "Rrs_415 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 50,
+      "wavelength_nm": 415,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 415 nm"
+    },
+    {
+      "column_name": "Rrs_416 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 51,
+      "wavelength_nm": 416,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 416 nm"
+    },
+    {
+      "column_name": "Rrs_417 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 52,
+      "wavelength_nm": 417,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 417 nm"
+    },
+    {
+      "column_name": "Rrs_418 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 53,
+      "wavelength_nm": 418,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 418 nm"
+    },
+    {
+      "column_name": "Rrs_419 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 54,
+      "wavelength_nm": 419,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 419 nm"
+    },
+    {
+      "column_name": "Rrs_420 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 55,
+      "wavelength_nm": 420,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 420 nm"
+    },
+    {
+      "column_name": "Rrs_421 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 56,
+      "wavelength_nm": 421,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 421 nm"
+    },
+    {
+      "column_name": "Rrs_422 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 57,
+      "wavelength_nm": 422,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 422 nm"
+    },
+    {
+      "column_name": "Rrs_423 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 58,
+      "wavelength_nm": 423,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 423 nm"
+    },
+    {
+      "column_name": "Rrs_424 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 59,
+      "wavelength_nm": 424,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 424 nm"
+    },
+    {
+      "column_name": "Rrs_425 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 60,
+      "wavelength_nm": 425,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 425 nm"
+    },
+    {
+      "column_name": "Rrs_426 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 61,
+      "wavelength_nm": 426,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 426 nm"
+    },
+    {
+      "column_name": "Rrs_427 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 62,
+      "wavelength_nm": 427,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 427 nm"
+    },
+    {
+      "column_name": "Rrs_428 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 63,
+      "wavelength_nm": 428,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 428 nm"
+    },
+    {
+      "column_name": "Rrs_429 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 64,
+      "wavelength_nm": 429,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 429 nm"
+    },
+    {
+      "column_name": "Rrs_430 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 65,
+      "wavelength_nm": 430,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 430 nm"
+    },
+    {
+      "column_name": "Rrs_431 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 66,
+      "wavelength_nm": 431,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 431 nm"
+    },
+    {
+      "column_name": "Rrs_432 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 67,
+      "wavelength_nm": 432,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 432 nm"
+    },
+    {
+      "column_name": "Rrs_433 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 68,
+      "wavelength_nm": 433,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 433 nm"
+    },
+    {
+      "column_name": "Rrs_434 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 69,
+      "wavelength_nm": 434,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 434 nm"
+    },
+    {
+      "column_name": "Rrs_435 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 70,
+      "wavelength_nm": 435,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 435 nm"
+    },
+    {
+      "column_name": "Rrs_436 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 71,
+      "wavelength_nm": 436,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 436 nm"
+    },
+    {
+      "column_name": "Rrs_437 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 72,
+      "wavelength_nm": 437,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 437 nm"
+    },
+    {
+      "column_name": "Rrs_438 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 73,
+      "wavelength_nm": 438,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 438 nm"
+    },
+    {
+      "column_name": "Rrs_439 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 74,
+      "wavelength_nm": 439,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 439 nm"
+    },
+    {
+      "column_name": "Rrs_440 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 75,
+      "wavelength_nm": 440,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 440 nm"
+    },
+    {
+      "column_name": "Rrs_441 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 76,
+      "wavelength_nm": 441,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 441 nm"
+    },
+    {
+      "column_name": "Rrs_442 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 77,
+      "wavelength_nm": 442,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 442 nm"
+    },
+    {
+      "column_name": "Rrs_443 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 78,
+      "wavelength_nm": 443,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 443 nm"
+    },
+    {
+      "column_name": "Rrs_444 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 79,
+      "wavelength_nm": 444,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 444 nm"
+    },
+    {
+      "column_name": "Rrs_445 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 80,
+      "wavelength_nm": 445,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 445 nm"
+    },
+    {
+      "column_name": "Rrs_446 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 81,
+      "wavelength_nm": 446,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 446 nm"
+    },
+    {
+      "column_name": "Rrs_447 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 82,
+      "wavelength_nm": 447,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 447 nm"
+    },
+    {
+      "column_name": "Rrs_448 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 83,
+      "wavelength_nm": 448,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 448 nm"
+    },
+    {
+      "column_name": "Rrs_449 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 84,
+      "wavelength_nm": 449,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 449 nm"
+    },
+    {
+      "column_name": "Rrs_450 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 85,
+      "wavelength_nm": 450,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 450 nm"
+    },
+    {
+      "column_name": "Rrs_451 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 86,
+      "wavelength_nm": 451,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 451 nm"
+    },
+    {
+      "column_name": "Rrs_452 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 87,
+      "wavelength_nm": 452,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 452 nm"
+    },
+    {
+      "column_name": "Rrs_453 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 88,
+      "wavelength_nm": 453,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 453 nm"
+    },
+    {
+      "column_name": "Rrs_454 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 89,
+      "wavelength_nm": 454,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 454 nm"
+    },
+    {
+      "column_name": "Rrs_455 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 90,
+      "wavelength_nm": 455,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 455 nm"
+    },
+    {
+      "column_name": "Rrs_456 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 91,
+      "wavelength_nm": 456,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 456 nm"
+    },
+    {
+      "column_name": "Rrs_457 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 92,
+      "wavelength_nm": 457,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 457 nm"
+    },
+    {
+      "column_name": "Rrs_458 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 93,
+      "wavelength_nm": 458,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 458 nm"
+    },
+    {
+      "column_name": "Rrs_459 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 94,
+      "wavelength_nm": 459,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 459 nm"
+    },
+    {
+      "column_name": "Rrs_460 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 95,
+      "wavelength_nm": 460,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 460 nm"
+    },
+    {
+      "column_name": "Rrs_461 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 96,
+      "wavelength_nm": 461,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 461 nm"
+    },
+    {
+      "column_name": "Rrs_462 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 97,
+      "wavelength_nm": 462,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 462 nm"
+    },
+    {
+      "column_name": "Rrs_463 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 98,
+      "wavelength_nm": 463,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 463 nm"
+    },
+    {
+      "column_name": "Rrs_464 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 99,
+      "wavelength_nm": 464,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 464 nm"
+    },
+    {
+      "column_name": "Rrs_465 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 100,
+      "wavelength_nm": 465,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 465 nm"
+    },
+    {
+      "column_name": "Rrs_466 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 101,
+      "wavelength_nm": 466,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 466 nm"
+    },
+    {
+      "column_name": "Rrs_467 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 102,
+      "wavelength_nm": 467,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 467 nm"
+    },
+    {
+      "column_name": "Rrs_468 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 103,
+      "wavelength_nm": 468,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 468 nm"
+    },
+    {
+      "column_name": "Rrs_469 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 104,
+      "wavelength_nm": 469,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 469 nm"
+    },
+    {
+      "column_name": "Rrs_470 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 105,
+      "wavelength_nm": 470,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 470 nm"
+    },
+    {
+      "column_name": "Rrs_471 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 106,
+      "wavelength_nm": 471,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 471 nm"
+    },
+    {
+      "column_name": "Rrs_472 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 107,
+      "wavelength_nm": 472,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 472 nm"
+    },
+    {
+      "column_name": "Rrs_473 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 108,
+      "wavelength_nm": 473,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 473 nm"
+    },
+    {
+      "column_name": "Rrs_474 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 109,
+      "wavelength_nm": 474,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 474 nm"
+    },
+    {
+      "column_name": "Rrs_475 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 110,
+      "wavelength_nm": 475,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 475 nm"
+    },
+    {
+      "column_name": "Rrs_476 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 111,
+      "wavelength_nm": 476,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 476 nm"
+    },
+    {
+      "column_name": "Rrs_477 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 112,
+      "wavelength_nm": 477,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 477 nm"
+    },
+    {
+      "column_name": "Rrs_478 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 113,
+      "wavelength_nm": 478,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 478 nm"
+    },
+    {
+      "column_name": "Rrs_479 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 114,
+      "wavelength_nm": 479,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 479 nm"
+    },
+    {
+      "column_name": "Rrs_480 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 115,
+      "wavelength_nm": 480,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 480 nm"
+    },
+    {
+      "column_name": "Rrs_481 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 116,
+      "wavelength_nm": 481,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 481 nm"
+    },
+    {
+      "column_name": "Rrs_482 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 117,
+      "wavelength_nm": 482,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 482 nm"
+    },
+    {
+      "column_name": "Rrs_483 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 118,
+      "wavelength_nm": 483,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 483 nm"
+    },
+    {
+      "column_name": "Rrs_484 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 119,
+      "wavelength_nm": 484,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 484 nm"
+    },
+    {
+      "column_name": "Rrs_485 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 120,
+      "wavelength_nm": 485,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 485 nm"
+    },
+    {
+      "column_name": "Rrs_486 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 121,
+      "wavelength_nm": 486,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 486 nm"
+    },
+    {
+      "column_name": "Rrs_487 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 122,
+      "wavelength_nm": 487,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 487 nm"
+    },
+    {
+      "column_name": "Rrs_488 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 123,
+      "wavelength_nm": 488,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 488 nm"
+    },
+    {
+      "column_name": "Rrs_489 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 124,
+      "wavelength_nm": 489,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 489 nm"
+    },
+    {
+      "column_name": "Rrs_490 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 125,
+      "wavelength_nm": 490,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 490 nm"
+    },
+    {
+      "column_name": "Rrs_491 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 126,
+      "wavelength_nm": 491,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 491 nm"
+    },
+    {
+      "column_name": "Rrs_492 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 127,
+      "wavelength_nm": 492,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 492 nm"
+    },
+    {
+      "column_name": "Rrs_493 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 128,
+      "wavelength_nm": 493,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 493 nm"
+    },
+    {
+      "column_name": "Rrs_494 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 129,
+      "wavelength_nm": 494,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 494 nm"
+    },
+    {
+      "column_name": "Rrs_495 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 130,
+      "wavelength_nm": 495,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 495 nm"
+    },
+    {
+      "column_name": "Rrs_496 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 131,
+      "wavelength_nm": 496,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 496 nm"
+    },
+    {
+      "column_name": "Rrs_497 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 132,
+      "wavelength_nm": 497,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 497 nm"
+    },
+    {
+      "column_name": "Rrs_498 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 133,
+      "wavelength_nm": 498,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 498 nm"
+    },
+    {
+      "column_name": "Rrs_499 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 134,
+      "wavelength_nm": 499,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 499 nm"
+    },
+    {
+      "column_name": "Rrs_500 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 135,
+      "wavelength_nm": 500,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 500 nm"
+    },
+    {
+      "column_name": "Rrs_501 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 136,
+      "wavelength_nm": 501,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 501 nm"
+    },
+    {
+      "column_name": "Rrs_502 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 137,
+      "wavelength_nm": 502,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 502 nm"
+    },
+    {
+      "column_name": "Rrs_503 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 138,
+      "wavelength_nm": 503,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 503 nm"
+    },
+    {
+      "column_name": "Rrs_504 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 139,
+      "wavelength_nm": 504,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 504 nm"
+    },
+    {
+      "column_name": "Rrs_505 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 140,
+      "wavelength_nm": 505,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 505 nm"
+    },
+    {
+      "column_name": "Rrs_506 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 141,
+      "wavelength_nm": 506,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 506 nm"
+    },
+    {
+      "column_name": "Rrs_507 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 142,
+      "wavelength_nm": 507,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 507 nm"
+    },
+    {
+      "column_name": "Rrs_508 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 143,
+      "wavelength_nm": 508,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 508 nm"
+    },
+    {
+      "column_name": "Rrs_509 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 144,
+      "wavelength_nm": 509,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 509 nm"
+    },
+    {
+      "column_name": "Rrs_510 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 145,
+      "wavelength_nm": 510,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 510 nm"
+    },
+    {
+      "column_name": "Rrs_511 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 146,
+      "wavelength_nm": 511,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 511 nm"
+    },
+    {
+      "column_name": "Rrs_512 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 147,
+      "wavelength_nm": 512,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 512 nm"
+    },
+    {
+      "column_name": "Rrs_513 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 148,
+      "wavelength_nm": 513,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 513 nm"
+    },
+    {
+      "column_name": "Rrs_514 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 149,
+      "wavelength_nm": 514,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 514 nm"
+    },
+    {
+      "column_name": "Rrs_515 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 150,
+      "wavelength_nm": 515,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 515 nm"
+    },
+    {
+      "column_name": "Rrs_516 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 151,
+      "wavelength_nm": 516,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 516 nm"
+    },
+    {
+      "column_name": "Rrs_517 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 152,
+      "wavelength_nm": 517,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 517 nm"
+    },
+    {
+      "column_name": "Rrs_518 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 153,
+      "wavelength_nm": 518,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 518 nm"
+    },
+    {
+      "column_name": "Rrs_519 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 154,
+      "wavelength_nm": 519,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 519 nm"
+    },
+    {
+      "column_name": "Rrs_520 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 155,
+      "wavelength_nm": 520,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 520 nm"
+    },
+    {
+      "column_name": "Rrs_521 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 156,
+      "wavelength_nm": 521,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 521 nm"
+    },
+    {
+      "column_name": "Rrs_522 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 157,
+      "wavelength_nm": 522,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 522 nm"
+    },
+    {
+      "column_name": "Rrs_523 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 158,
+      "wavelength_nm": 523,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 523 nm"
+    },
+    {
+      "column_name": "Rrs_524 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 159,
+      "wavelength_nm": 524,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 524 nm"
+    },
+    {
+      "column_name": "Rrs_525 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 160,
+      "wavelength_nm": 525,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 525 nm"
+    },
+    {
+      "column_name": "Rrs_526 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 161,
+      "wavelength_nm": 526,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 526 nm"
+    },
+    {
+      "column_name": "Rrs_527 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 162,
+      "wavelength_nm": 527,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 527 nm"
+    },
+    {
+      "column_name": "Rrs_528 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 163,
+      "wavelength_nm": 528,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 528 nm"
+    },
+    {
+      "column_name": "Rrs_529 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 164,
+      "wavelength_nm": 529,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 529 nm"
+    },
+    {
+      "column_name": "Rrs_530 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 165,
+      "wavelength_nm": 530,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 530 nm"
+    },
+    {
+      "column_name": "Rrs_531 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 166,
+      "wavelength_nm": 531,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 531 nm"
+    },
+    {
+      "column_name": "Rrs_532 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 167,
+      "wavelength_nm": 532,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 532 nm"
+    },
+    {
+      "column_name": "Rrs_533 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 168,
+      "wavelength_nm": 533,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 533 nm"
+    },
+    {
+      "column_name": "Rrs_534 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 169,
+      "wavelength_nm": 534,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 534 nm"
+    },
+    {
+      "column_name": "Rrs_535 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 170,
+      "wavelength_nm": 535,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 535 nm"
+    },
+    {
+      "column_name": "Rrs_536 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 171,
+      "wavelength_nm": 536,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 536 nm"
+    },
+    {
+      "column_name": "Rrs_537 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 172,
+      "wavelength_nm": 537,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 537 nm"
+    },
+    {
+      "column_name": "Rrs_538 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 173,
+      "wavelength_nm": 538,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 538 nm"
+    },
+    {
+      "column_name": "Rrs_539 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 174,
+      "wavelength_nm": 539,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 539 nm"
+    },
+    {
+      "column_name": "Rrs_540 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 175,
+      "wavelength_nm": 540,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 540 nm"
+    },
+    {
+      "column_name": "Rrs_541 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 176,
+      "wavelength_nm": 541,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 541 nm"
+    },
+    {
+      "column_name": "Rrs_542 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 177,
+      "wavelength_nm": 542,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 542 nm"
+    },
+    {
+      "column_name": "Rrs_543 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 178,
+      "wavelength_nm": 543,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 543 nm"
+    },
+    {
+      "column_name": "Rrs_544 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 179,
+      "wavelength_nm": 544,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 544 nm"
+    },
+    {
+      "column_name": "Rrs_545 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 180,
+      "wavelength_nm": 545,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 545 nm"
+    },
+    {
+      "column_name": "Rrs_546 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 181,
+      "wavelength_nm": 546,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 546 nm"
+    },
+    {
+      "column_name": "Rrs_547 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 182,
+      "wavelength_nm": 547,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 547 nm"
+    },
+    {
+      "column_name": "Rrs_548 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 183,
+      "wavelength_nm": 548,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 548 nm"
+    },
+    {
+      "column_name": "Rrs_549 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 184,
+      "wavelength_nm": 549,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 549 nm"
+    },
+    {
+      "column_name": "Rrs_550 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 185,
+      "wavelength_nm": 550,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 550 nm"
+    },
+    {
+      "column_name": "Rrs_551 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 186,
+      "wavelength_nm": 551,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 551 nm"
+    },
+    {
+      "column_name": "Rrs_552 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 187,
+      "wavelength_nm": 552,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 552 nm"
+    },
+    {
+      "column_name": "Rrs_553 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 188,
+      "wavelength_nm": 553,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 553 nm"
+    },
+    {
+      "column_name": "Rrs_554 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 189,
+      "wavelength_nm": 554,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 554 nm"
+    },
+    {
+      "column_name": "Rrs_555 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 190,
+      "wavelength_nm": 555,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 555 nm"
+    },
+    {
+      "column_name": "Rrs_556 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 191,
+      "wavelength_nm": 556,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 556 nm"
+    },
+    {
+      "column_name": "Rrs_557 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 192,
+      "wavelength_nm": 557,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 557 nm"
+    },
+    {
+      "column_name": "Rrs_558 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 193,
+      "wavelength_nm": 558,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 558 nm"
+    },
+    {
+      "column_name": "Rrs_559 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 194,
+      "wavelength_nm": 559,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 559 nm"
+    },
+    {
+      "column_name": "Rrs_560 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 195,
+      "wavelength_nm": 560,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 560 nm"
+    },
+    {
+      "column_name": "Rrs_561 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 196,
+      "wavelength_nm": 561,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 561 nm"
+    },
+    {
+      "column_name": "Rrs_562 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 197,
+      "wavelength_nm": 562,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 562 nm"
+    },
+    {
+      "column_name": "Rrs_563 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 198,
+      "wavelength_nm": 563,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 563 nm"
+    },
+    {
+      "column_name": "Rrs_564 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 199,
+      "wavelength_nm": 564,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 564 nm"
+    },
+    {
+      "column_name": "Rrs_565 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 200,
+      "wavelength_nm": 565,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 565 nm"
+    },
+    {
+      "column_name": "Rrs_566 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 201,
+      "wavelength_nm": 566,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 566 nm"
+    },
+    {
+      "column_name": "Rrs_567 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 202,
+      "wavelength_nm": 567,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 567 nm"
+    },
+    {
+      "column_name": "Rrs_568 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 203,
+      "wavelength_nm": 568,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 568 nm"
+    },
+    {
+      "column_name": "Rrs_569 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 204,
+      "wavelength_nm": 569,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 569 nm"
+    },
+    {
+      "column_name": "Rrs_570 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 205,
+      "wavelength_nm": 570,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 570 nm"
+    },
+    {
+      "column_name": "Rrs_571 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 206,
+      "wavelength_nm": 571,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 571 nm"
+    },
+    {
+      "column_name": "Rrs_572 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 207,
+      "wavelength_nm": 572,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 572 nm"
+    },
+    {
+      "column_name": "Rrs_573 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 208,
+      "wavelength_nm": 573,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 573 nm"
+    },
+    {
+      "column_name": "Rrs_574 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 209,
+      "wavelength_nm": 574,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 574 nm"
+    },
+    {
+      "column_name": "Rrs_575 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 210,
+      "wavelength_nm": 575,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 575 nm"
+    },
+    {
+      "column_name": "Rrs_576 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 211,
+      "wavelength_nm": 576,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 576 nm"
+    },
+    {
+      "column_name": "Rrs_577 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 212,
+      "wavelength_nm": 577,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 577 nm"
+    },
+    {
+      "column_name": "Rrs_578 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 213,
+      "wavelength_nm": 578,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 578 nm"
+    },
+    {
+      "column_name": "Rrs_579 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 214,
+      "wavelength_nm": 579,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 579 nm"
+    },
+    {
+      "column_name": "Rrs_580 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 215,
+      "wavelength_nm": 580,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 580 nm"
+    },
+    {
+      "column_name": "Rrs_581 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 216,
+      "wavelength_nm": 581,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 581 nm"
+    },
+    {
+      "column_name": "Rrs_582 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 217,
+      "wavelength_nm": 582,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 582 nm"
+    },
+    {
+      "column_name": "Rrs_583 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 218,
+      "wavelength_nm": 583,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 583 nm"
+    },
+    {
+      "column_name": "Rrs_584 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 219,
+      "wavelength_nm": 584,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 584 nm"
+    },
+    {
+      "column_name": "Rrs_585 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 220,
+      "wavelength_nm": 585,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 585 nm"
+    },
+    {
+      "column_name": "Rrs_586 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 221,
+      "wavelength_nm": 586,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 586 nm"
+    },
+    {
+      "column_name": "Rrs_587 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 222,
+      "wavelength_nm": 587,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 587 nm"
+    },
+    {
+      "column_name": "Rrs_588 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 223,
+      "wavelength_nm": 588,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 588 nm"
+    },
+    {
+      "column_name": "Rrs_589 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 224,
+      "wavelength_nm": 589,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 589 nm"
+    },
+    {
+      "column_name": "Rrs_590 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 225,
+      "wavelength_nm": 590,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 590 nm"
+    },
+    {
+      "column_name": "Rrs_591 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 226,
+      "wavelength_nm": 591,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 591 nm"
+    },
+    {
+      "column_name": "Rrs_592 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 227,
+      "wavelength_nm": 592,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 592 nm"
+    },
+    {
+      "column_name": "Rrs_593 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 228,
+      "wavelength_nm": 593,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 593 nm"
+    },
+    {
+      "column_name": "Rrs_594 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 229,
+      "wavelength_nm": 594,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 594 nm"
+    },
+    {
+      "column_name": "Rrs_595 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 230,
+      "wavelength_nm": 595,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 595 nm"
+    },
+    {
+      "column_name": "Rrs_596 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 231,
+      "wavelength_nm": 596,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 596 nm"
+    },
+    {
+      "column_name": "Rrs_597 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 232,
+      "wavelength_nm": 597,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 597 nm"
+    },
+    {
+      "column_name": "Rrs_598 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 233,
+      "wavelength_nm": 598,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 598 nm"
+    },
+    {
+      "column_name": "Rrs_599 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 234,
+      "wavelength_nm": 599,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 599 nm"
+    },
+    {
+      "column_name": "Rrs_600 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 235,
+      "wavelength_nm": 600,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 600 nm"
+    },
+    {
+      "column_name": "Rrs_601 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 236,
+      "wavelength_nm": 601,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 601 nm"
+    },
+    {
+      "column_name": "Rrs_602 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 237,
+      "wavelength_nm": 602,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 602 nm"
+    },
+    {
+      "column_name": "Rrs_603 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 238,
+      "wavelength_nm": 603,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 603 nm"
+    },
+    {
+      "column_name": "Rrs_604 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 239,
+      "wavelength_nm": 604,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 604 nm"
+    },
+    {
+      "column_name": "Rrs_605 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 240,
+      "wavelength_nm": 605,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 605 nm"
+    },
+    {
+      "column_name": "Rrs_606 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 241,
+      "wavelength_nm": 606,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 606 nm"
+    },
+    {
+      "column_name": "Rrs_607 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 242,
+      "wavelength_nm": 607,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 607 nm"
+    },
+    {
+      "column_name": "Rrs_608 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 243,
+      "wavelength_nm": 608,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 608 nm"
+    },
+    {
+      "column_name": "Rrs_609 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 244,
+      "wavelength_nm": 609,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 609 nm"
+    },
+    {
+      "column_name": "Rrs_610 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 245,
+      "wavelength_nm": 610,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 610 nm"
+    },
+    {
+      "column_name": "Rrs_611 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 246,
+      "wavelength_nm": 611,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 611 nm"
+    },
+    {
+      "column_name": "Rrs_612 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 247,
+      "wavelength_nm": 612,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 612 nm"
+    },
+    {
+      "column_name": "Rrs_613 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 248,
+      "wavelength_nm": 613,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 613 nm"
+    },
+    {
+      "column_name": "Rrs_614 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 249,
+      "wavelength_nm": 614,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 614 nm"
+    },
+    {
+      "column_name": "Rrs_615 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 250,
+      "wavelength_nm": 615,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 615 nm"
+    },
+    {
+      "column_name": "Rrs_616 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 251,
+      "wavelength_nm": 616,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 616 nm"
+    },
+    {
+      "column_name": "Rrs_617 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 252,
+      "wavelength_nm": 617,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 617 nm"
+    },
+    {
+      "column_name": "Rrs_618 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 253,
+      "wavelength_nm": 618,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 618 nm"
+    },
+    {
+      "column_name": "Rrs_619 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 254,
+      "wavelength_nm": 619,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 619 nm"
+    },
+    {
+      "column_name": "Rrs_620 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 255,
+      "wavelength_nm": 620,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 620 nm"
+    },
+    {
+      "column_name": "Rrs_621 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 256,
+      "wavelength_nm": 621,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 621 nm"
+    },
+    {
+      "column_name": "Rrs_622 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 257,
+      "wavelength_nm": 622,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 622 nm"
+    },
+    {
+      "column_name": "Rrs_623 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 258,
+      "wavelength_nm": 623,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 623 nm"
+    },
+    {
+      "column_name": "Rrs_624 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 259,
+      "wavelength_nm": 624,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 624 nm"
+    },
+    {
+      "column_name": "Rrs_625 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 260,
+      "wavelength_nm": 625,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 625 nm"
+    },
+    {
+      "column_name": "Rrs_626 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 261,
+      "wavelength_nm": 626,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 626 nm"
+    },
+    {
+      "column_name": "Rrs_627 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 262,
+      "wavelength_nm": 627,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 627 nm"
+    },
+    {
+      "column_name": "Rrs_628 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 263,
+      "wavelength_nm": 628,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 628 nm"
+    },
+    {
+      "column_name": "Rrs_629 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 264,
+      "wavelength_nm": 629,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 629 nm"
+    },
+    {
+      "column_name": "Rrs_630 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 265,
+      "wavelength_nm": 630,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 630 nm"
+    },
+    {
+      "column_name": "Rrs_631 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 266,
+      "wavelength_nm": 631,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 631 nm"
+    },
+    {
+      "column_name": "Rrs_632 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 267,
+      "wavelength_nm": 632,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 632 nm"
+    },
+    {
+      "column_name": "Rrs_633 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 268,
+      "wavelength_nm": 633,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 633 nm"
+    },
+    {
+      "column_name": "Rrs_634 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 269,
+      "wavelength_nm": 634,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 634 nm"
+    },
+    {
+      "column_name": "Rrs_635 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 270,
+      "wavelength_nm": 635,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 635 nm"
+    },
+    {
+      "column_name": "Rrs_636 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 271,
+      "wavelength_nm": 636,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 636 nm"
+    },
+    {
+      "column_name": "Rrs_637 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 272,
+      "wavelength_nm": 637,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 637 nm"
+    },
+    {
+      "column_name": "Rrs_638 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 273,
+      "wavelength_nm": 638,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 638 nm"
+    },
+    {
+      "column_name": "Rrs_639 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 274,
+      "wavelength_nm": 639,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 639 nm"
+    },
+    {
+      "column_name": "Rrs_640 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 275,
+      "wavelength_nm": 640,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 640 nm"
+    },
+    {
+      "column_name": "Rrs_641 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 276,
+      "wavelength_nm": 641,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 641 nm"
+    },
+    {
+      "column_name": "Rrs_642 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 277,
+      "wavelength_nm": 642,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 642 nm"
+    },
+    {
+      "column_name": "Rrs_643 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 278,
+      "wavelength_nm": 643,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 643 nm"
+    },
+    {
+      "column_name": "Rrs_644 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 279,
+      "wavelength_nm": 644,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 644 nm"
+    },
+    {
+      "column_name": "Rrs_645 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 280,
+      "wavelength_nm": 645,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 645 nm"
+    },
+    {
+      "column_name": "Rrs_646 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 281,
+      "wavelength_nm": 646,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 646 nm"
+    },
+    {
+      "column_name": "Rrs_647 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 282,
+      "wavelength_nm": 647,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 647 nm"
+    },
+    {
+      "column_name": "Rrs_648 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 283,
+      "wavelength_nm": 648,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 648 nm"
+    },
+    {
+      "column_name": "Rrs_649 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 284,
+      "wavelength_nm": 649,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 649 nm"
+    },
+    {
+      "column_name": "Rrs_650 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 285,
+      "wavelength_nm": 650,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 650 nm"
+    },
+    {
+      "column_name": "Rrs_651 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 286,
+      "wavelength_nm": 651,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 651 nm"
+    },
+    {
+      "column_name": "Rrs_652 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 287,
+      "wavelength_nm": 652,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 652 nm"
+    },
+    {
+      "column_name": "Rrs_653 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 288,
+      "wavelength_nm": 653,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 653 nm"
+    },
+    {
+      "column_name": "Rrs_654 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 289,
+      "wavelength_nm": 654,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 654 nm"
+    },
+    {
+      "column_name": "Rrs_655 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 290,
+      "wavelength_nm": 655,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 655 nm"
+    },
+    {
+      "column_name": "Rrs_656 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 291,
+      "wavelength_nm": 656,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 656 nm"
+    },
+    {
+      "column_name": "Rrs_657 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 292,
+      "wavelength_nm": 657,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 657 nm"
+    },
+    {
+      "column_name": "Rrs_658 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 293,
+      "wavelength_nm": 658,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 658 nm"
+    },
+    {
+      "column_name": "Rrs_659 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 294,
+      "wavelength_nm": 659,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 659 nm"
+    },
+    {
+      "column_name": "Rrs_660 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 295,
+      "wavelength_nm": 660,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 660 nm"
+    },
+    {
+      "column_name": "Rrs_661 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 296,
+      "wavelength_nm": 661,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 661 nm"
+    },
+    {
+      "column_name": "Rrs_662 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 297,
+      "wavelength_nm": 662,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 662 nm"
+    },
+    {
+      "column_name": "Rrs_663 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 298,
+      "wavelength_nm": 663,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 663 nm"
+    },
+    {
+      "column_name": "Rrs_664 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 299,
+      "wavelength_nm": 664,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 664 nm"
+    },
+    {
+      "column_name": "Rrs_665 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 300,
+      "wavelength_nm": 665,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 665 nm"
+    },
+    {
+      "column_name": "Rrs_666 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 301,
+      "wavelength_nm": 666,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 666 nm"
+    },
+    {
+      "column_name": "Rrs_667 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 302,
+      "wavelength_nm": 667,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 667 nm"
+    },
+    {
+      "column_name": "Rrs_668 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 303,
+      "wavelength_nm": 668,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 668 nm"
+    },
+    {
+      "column_name": "Rrs_669 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 304,
+      "wavelength_nm": 669,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 669 nm"
+    },
+    {
+      "column_name": "Rrs_670 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 305,
+      "wavelength_nm": 670,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 670 nm"
+    },
+    {
+      "column_name": "Rrs_671 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 306,
+      "wavelength_nm": 671,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 671 nm"
+    },
+    {
+      "column_name": "Rrs_672 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 307,
+      "wavelength_nm": 672,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 672 nm"
+    },
+    {
+      "column_name": "Rrs_673 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 308,
+      "wavelength_nm": 673,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 673 nm"
+    },
+    {
+      "column_name": "Rrs_674 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 309,
+      "wavelength_nm": 674,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 674 nm"
+    },
+    {
+      "column_name": "Rrs_675 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 310,
+      "wavelength_nm": 675,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 675 nm"
+    },
+    {
+      "column_name": "Rrs_676 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 311,
+      "wavelength_nm": 676,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 676 nm"
+    },
+    {
+      "column_name": "Rrs_677 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 312,
+      "wavelength_nm": 677,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 677 nm"
+    },
+    {
+      "column_name": "Rrs_678 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 313,
+      "wavelength_nm": 678,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 678 nm"
+    },
+    {
+      "column_name": "Rrs_679 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 314,
+      "wavelength_nm": 679,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 679 nm"
+    },
+    {
+      "column_name": "Rrs_680 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 315,
+      "wavelength_nm": 680,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 680 nm"
+    },
+    {
+      "column_name": "Rrs_681 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 316,
+      "wavelength_nm": 681,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 681 nm"
+    },
+    {
+      "column_name": "Rrs_682 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 317,
+      "wavelength_nm": 682,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 682 nm"
+    },
+    {
+      "column_name": "Rrs_683 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 318,
+      "wavelength_nm": 683,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 683 nm"
+    },
+    {
+      "column_name": "Rrs_684 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 319,
+      "wavelength_nm": 684,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 684 nm"
+    },
+    {
+      "column_name": "Rrs_685 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 320,
+      "wavelength_nm": 685,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 685 nm"
+    },
+    {
+      "column_name": "Rrs_686 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 321,
+      "wavelength_nm": 686,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 686 nm"
+    },
+    {
+      "column_name": "Rrs_687 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 322,
+      "wavelength_nm": 687,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 687 nm"
+    },
+    {
+      "column_name": "Rrs_688 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 323,
+      "wavelength_nm": 688,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 688 nm"
+    },
+    {
+      "column_name": "Rrs_689 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 324,
+      "wavelength_nm": 689,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 689 nm"
+    },
+    {
+      "column_name": "Rrs_690 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 325,
+      "wavelength_nm": 690,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 690 nm"
+    },
+    {
+      "column_name": "Rrs_691 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 326,
+      "wavelength_nm": 691,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 691 nm"
+    },
+    {
+      "column_name": "Rrs_692 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 327,
+      "wavelength_nm": 692,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 692 nm"
+    },
+    {
+      "column_name": "Rrs_693 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 328,
+      "wavelength_nm": 693,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 693 nm"
+    },
+    {
+      "column_name": "Rrs_694 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 329,
+      "wavelength_nm": 694,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 694 nm"
+    },
+    {
+      "column_name": "Rrs_695 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 330,
+      "wavelength_nm": 695,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 695 nm"
+    },
+    {
+      "column_name": "Rrs_696 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 331,
+      "wavelength_nm": 696,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 696 nm"
+    },
+    {
+      "column_name": "Rrs_697 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 332,
+      "wavelength_nm": 697,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 697 nm"
+    },
+    {
+      "column_name": "Rrs_698 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 333,
+      "wavelength_nm": 698,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 698 nm"
+    },
+    {
+      "column_name": "Rrs_699 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 334,
+      "wavelength_nm": 699,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 699 nm"
+    },
+    {
+      "column_name": "Rrs_700 [1/sr] (Hyperspectral radiometer)",
+      "column_index": 335,
+      "wavelength_nm": 700,
+      "variable_type": "remote_sensing_reflectance",
+      "unit": "1/sr",
+      "method_device": "Hyperspectral radiometer",
+      "description": "Remote sensing reflectance at 700 nm"
+    }
+  ],
+  "column_summary": {
+    "metadata": 1,
+    "geocode": 5,
+    "pigment": 25,
+    "remote_sensing_reflectance": 301,
+    "measurement": 4,
+    "unknown": 0
+  }
+}

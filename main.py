@@ -44,7 +44,9 @@ if __name__ == "__main__":
         raise ValueError("Config file path cannot be empty")
     
     config_path = Path(config_input)
-    config = load_config_from_file(config_path)
+    config_file = config_path if config_path.is_absolute() else (project_root / config_path)
+    config_file = config_file.resolve()
+    config = load_config_from_file(config_file)
     
     # Extract experiment name from config
     experiment = get_experiment_name(config)
@@ -58,7 +60,7 @@ if __name__ == "__main__":
         print(f"Description: {description}")
     
     # Data directory paths
-    input_dir = get_input_dir(config, project_root)
+    input_dir = get_input_dir(config, project_root, config_dir=config_file.parent)
     
     # Collect file paths
     rrs_paths = list_nc_files(input_dir / "rrs")
@@ -82,7 +84,7 @@ if __name__ == "__main__":
     result = sdp_from_pace(rrs_paths, sss_paths, sst_paths, bbox, pigments)
     
     # Save results
-    output_dir = get_output_dir(config, project_root)
+    output_dir = get_output_dir(config, project_root, config_dir=config_file.parent)
     output_dir.mkdir(parents=True, exist_ok=True)
     output_file = output_dir / output_filename
     result.to_netcdf(output_file)

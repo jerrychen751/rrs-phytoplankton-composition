@@ -1,5 +1,6 @@
 """Load experiment configuration from YAML files."""
 
+import os
 import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
@@ -14,30 +15,25 @@ def get_project_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
-def load_config(experiment: str, config_dir: Optional[Path] = None) -> Dict[str, Any]:
+def _expand_path(path: Path) -> Path:
+    """Expand ~ and environment variables in a filesystem path."""
+    return Path(os.path.expandvars(os.path.expanduser(str(path))))
+
+
+def _resolve_path(path_str: str, project_root: Path, config_dir: Optional[Path]) -> Path:
     """
-    Load experiment configuration from YAML file.
-    
-    Looks for config file: config/<experiment>.yaml
-    Returns dict with experiment parameters.
+    Resolve a path from config.
+
+    - Absolute paths are returned as-is (after ~ and env var expansion)
+    - Relative paths resolve against config_dir when provided (experiment-centric configs)
+    - Otherwise, relative paths resolve against project_root (legacy behavior)
     """
-    if config_dir is None:
-        # Default to config/ directory in project root
-        project_root = get_project_root()
-        config_dir = project_root / "config"
-    
-    config_file = config_dir / f"{experiment}.yaml"
-    
-    if not config_file.exists():
-        raise FileNotFoundError(
-            f"Config file not found: {config_file}\n"
-            f"Create a config file for experiment '{experiment}' in {config_dir}/"
-        )
-    
-    with open(config_file, 'r') as f:
-        config = yaml.safe_load(f)
-    
-    return config
+    path = _expand_path(Path(path_str))
+    if path.is_absolute():
+        return path
+    if config_dir is not None:
+        return config_dir / path
+    return project_root / path
 
 
 def get_bbox(config: Dict[str, Any]) -> Tuple[float, float, float, float]:
@@ -118,12 +114,12 @@ def get_region(config: Dict[str, Any]) -> Optional[str]:
     return config.get("experiment", {}).get("region")
 
 
-def get_input_dir(config: Dict[str, Any], project_root: Path) -> Path:
+def get_input_dir(config: Dict[str, Any], project_root: Path, config_dir: Optional[Path] = None) -> Path:
     """
     Get input directory path from config.
     
     Requires 'io' section with 'input_dir' specified in config.
-    Path can be relative to project_root or absolute.
+    Path can be relative to config_dir (preferred) or project_root.
     """
     input_config = config.get("io", {})
     if "input_dir" not in input_config:
@@ -131,38 +127,34 @@ def get_input_dir(config: Dict[str, Any], project_root: Path) -> Path:
             "Input directory must be specified in config file under 'io.input_dir'.\n"
             "Example:\n"
             "io:\n"
-            "  input_dir: 'data/input/<experiment_name>'"
+            "  input_dir: 'inputs'"
         )
     
-    input_dir = Path(input_config["input_dir"])
-    if input_dir.is_absolute():
-        return input_dir
-    return project_root / input_dir
+    return _resolve_path(str(input_config["input_dir"]), project_root, config_dir)
 
 
-def get_output_base_dir(config: Dict[str, Any], project_root: Path) -> Path:
-    """
-    Get base output directory path from config.
-
-    Uses io.output.base_dir if provided; otherwise defaults to data/outputs.
-    Path can be relative to project_root or absolute.
-    """
-    output_cfg = config.get("io", {}).get("output", {})
-    base_dir = output_cfg.get("base_dir", "data/outputs")
-    base_path = Path(base_dir)
-    if base_path.is_absolute():
-        return base_path
-    return project_root / base_path
-
-
-def get_output_dir(config: Dict[str, Any], project_root: Path) -> Path:
+def get_output_dir(config: Dict[str, Any], project_root: Path, config_dir: Optional[Path] = None) -> Path:
     """
     Get output directory for this experiment.
 
-    Output directory is derived as: io.output.base_dir / experiment.name
+    Required (experiment-centric) config style:
+      io:
+        output:
+          dir: "outputs"
     """
-    experiment_name = get_experiment_name(config)
-    return get_output_base_dir(config, project_root) / experiment_name
+    output_cfg = config.get("io", {}).get("output", {})
+    output_dir = output_cfg.get("dir")
+    if output_dir is not None:
+        return _resolve_path(str(output_dir), project_root, config_dir)
+
+    raise ValueError(
+        "Output directory must be specified in config under 'io.output.dir'.\n"
+        "Example:\n"
+        "io:\n"
+        "  output:\n"
+        "    dir: 'outputs'\n"
+        "    filename: 'sdp_results.nc'\n"
+    )
 
 
 def get_output_filename(config: Dict[str, Any]) -> str:

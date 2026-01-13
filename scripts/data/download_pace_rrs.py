@@ -4,7 +4,7 @@ Download and extract PACE OCI Level-2 Rrs matchups for in-situ HPLC validation.
 
 The intended workflow is:
 
-1) Provide an experiment YAML (see `config/template.yaml`).
+1) Provide an experiment YAML (see `experiments/_template/config.yaml`).
 2) Point `validation.hplc.path` to an in-situ SeaBASS-derived dataset (CSV or .sb).
 3) For each in-situ observation:
    - Find candidate PACE OCI L2 AOP granules within ±N hours
@@ -86,6 +86,13 @@ def _resolve_from_project_root(path: str) -> Path:
     if p.is_absolute():
         return p
     return PROJECT_ROOT / p
+
+
+def _resolve_from_config_dir(path: str, config_dir: Path) -> Path:
+    p = _expand_user(path)
+    if p.is_absolute():
+        return p
+    return config_dir / p
 
 
 def _as_utc_naive(dt: pd.Series) -> np.ndarray:
@@ -451,13 +458,59 @@ def _build_match_config(cfg: Mapping[str, Any]) -> MatchConfig:
     )
 
 
-def _load_hplc_targets(cfg: Mapping[str, Any]) -> Tuple[pd.DataFrame, Dict[str, str]]:
+def _load_hplc_targets(cfg: Mapping[str, Any], config_dir: Path) -> Tuple[pd.DataFrame, Dict[str, str]]:
     path_str = _get_nested(cfg, ["validation", "hplc", "path"], None)
     if not path_str:
         raise ValueError("Missing config key: validation.hplc.path")
-    path = _resolve_from_project_root(str(path_str))
+    path = _resolve_from_config_dir(str(path_str), config_dir)
     if not path.exists():
         raise FileNotFoundError(path)
+
+    if path.is_dir():
+        files = sorted([p for p in path.iterdir() if p.is_file()])
+        sb_files = [p for p in files if p.suffix.lower() == ".sb"]
+        csv_files = [p for p in files if p.suffix.lower() == ".csv"]
+
+        if sb_files and csv_files:
+            raise ValueError(
+                "validation.hplc.path points to a directory containing both .sb and .csv files. "
+                "Use a directory with a single file type, or point to a single file."
+            )
+
+        if sb_files:
+            dfs: List[pd.DataFrame] = []
+            for sb in sb_files:
+                df_sb = load_seabass_hplc(sb)
+                df_sb = df_sb.copy()
+                df_sb["source_file"] = sb.name
+                # Best-effort normalization.
+                if "datetime" not in df_sb.columns:
+                    if "date" in df_sb.columns and "time" in df_sb.columns:
+                        df_sb["datetime"] = pd.to_datetime(
+                            df_sb["date"].astype(str) + " " + df_sb["time"].astype(str),
+                            errors="coerce",
+                            utc=True,
+                        )
+                else:
+                    df_sb["datetime"] = pd.to_datetime(df_sb["datetime"], errors="coerce", utc=True)
+                dfs.append(df_sb)
+
+            df = pd.concat(dfs, ignore_index=True, sort=False)
+            columns = {"lat": "lat", "lon": "lon", "date": "date", "time": "time", "station": "station"}
+            return df, columns
+
+        if csv_files:
+            dfs_csv: List[pd.DataFrame] = []
+            for csv in csv_files:
+                df_csv = pd.read_csv(csv)
+                df_csv = df_csv.copy()
+                df_csv["source_file"] = csv.name
+                dfs_csv.append(df_csv)
+            df = pd.concat(dfs_csv, ignore_index=True, sort=False)
+        else:
+            raise FileNotFoundError(f"No .sb or .csv files found in directory: {path}")
+    else:
+        df = None
 
     if path.suffix.lower() == ".sb":
         df = load_seabass_hplc(path)
@@ -469,10 +522,13 @@ def _load_hplc_targets(cfg: Mapping[str, Any]) -> Tuple[pd.DataFrame, Dict[str, 
                     errors="coerce",
                     utc=True,
                 )
+        else:
+            df["datetime"] = pd.to_datetime(df["datetime"], errors="coerce", utc=True)
         columns = {"lat": "lat", "lon": "lon", "date": "date", "time": "time", "station": "station"}
         return df, columns
 
-    df = pd.read_csv(path)
+    if df is None:
+        df = pd.read_csv(path)
 
     columns_cfg = _get_nested(cfg, ["validation", "hplc", "columns"], {})
     lat_col = str(columns_cfg.get("lat", "lat"))
@@ -981,11 +1037,12 @@ def _write_matchups_dataset(
 
 
 def run(cfg_path: Path, dry_run: bool = False) -> Path:
-    cfg = load_config_from_file(cfg_path)
+    cfg_file = _resolve_from_project_root(str(cfg_path))
+    cfg = load_config_from_file(cfg_file)
     match_cfg = _build_match_config(cfg)
 
     # Load and filter in-situ targets.
-    df_hplc, columns = _load_hplc_targets(cfg)
+    df_hplc, columns = _load_hplc_targets(cfg, config_dir=cfg_file.parent)
     df_hplc = _filter_targets_to_experiment(df_hplc, columns, cfg)
     if df_hplc.empty:
         raise RuntimeError("No in-situ observations remain after filtering to experiment bbox/time_range.")
@@ -1018,7 +1075,7 @@ def run(cfg_path: Path, dry_run: bool = False) -> Path:
     print("=" * 72)
     print("PACE OCI L2 Rrs Matchup Builder")
     print("=" * 72)
-    print(f"Config: {cfg_path}")
+    print(f"Config: {cfg_file}")
     print(f"Observations: {df_hplc.shape[0]} rows ({df_unique.shape[0]} unique lat/lon/time)")
     print(f"Output dir: {out_dir}")
     print(f"Output file: {output_path}")

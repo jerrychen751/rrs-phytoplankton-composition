@@ -1,26 +1,26 @@
 .DS_Store
 
-# Data (binary artifacts under data/)
-data/**/*.nc
-data/**/*.nc4
-data/**/*.mat
-data/**/*.png
-data/**/*.pdf
-data/**/*.doc
-data/**/*.docx
-data/**/*.xlsx
-data/**/*.zip
-data/**/*.tgz
-data/**/*.BVO
-data/**/*.bvo
-data/**/*.sb
-data/**/*.cal
-data/**/*.cor
-data/**/*.dat
-data/**/*.dev
-data/**/*.DEV
-data/**/*.tdf
-data/**/*.rtf
+# Data (binary artifacts under experiments/)
+experiments/**/*.nc
+experiments/**/*.nc4
+experiments/**/*.mat
+experiments/**/*.png
+experiments/**/*.pdf
+experiments/**/*.doc
+experiments/**/*.docx
+experiments/**/*.xlsx
+experiments/**/*.zip
+experiments/**/*.tgz
+experiments/**/*.BVO
+experiments/**/*.bvo
+experiments/**/*.sb
+experiments/**/*.cal
+experiments/**/*.cor
+experiments/**/*.dat
+experiments/**/*.dev
+experiments/**/*.DEV
+experiments/**/*.tdf
+experiments/**/*.rtf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

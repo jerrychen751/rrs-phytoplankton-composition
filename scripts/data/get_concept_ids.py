@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+"""Interactive helper for looking up NASA Earthdata collection concept IDs.
+
+This is a legacy utility that was useful when experimenting with Harmony OGC API
+URLs for mapped (L3-style) products.
+
+For the current PACE OCI L2 validation workflow, prefer
+`scripts/data/download_pace_rrs.py`, which searches CMR directly by short name.
+"""
+
 import requests
 import json
 

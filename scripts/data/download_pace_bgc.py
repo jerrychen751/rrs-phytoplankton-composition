@@ -23,7 +23,10 @@ import xarray as xr
 #
 # This downloader expects an Earthdata access token in the environment.
 # Avoid hard-coding secrets in the repo.
-EARTHACCESS_TOKEN = os.getenv("EARTHACCESS_TOKEN")
+def _get_token() -> Optional[str]:
+    # Prefer EARTHDATA_TOKEN (matches earthaccess convention), but support the
+    # repo legacy env var name as well.
+    return os.getenv("EARTHDATA_TOKEN") or os.getenv("EARTHACCESS_TOKEN")
 
 import sys
 
@@ -49,8 +52,9 @@ DEFAULT_COLLECTION_KEY = "L2_BGC"
 def get_session() -> requests.Session:
     """Create an authenticated requests session."""
     session = requests.Session()
-    if EARTHACCESS_TOKEN:
-        session.headers.update({"Authorization": f"Bearer {EARTHACCESS_TOKEN}"})
+    token = _get_token()
+    if token:
+        session.headers.update({"Authorization": f"Bearer {token}"})
     return session
 
 
@@ -166,8 +170,9 @@ def search_granules(
     
     all_entries = []
     headers = {}
-    if EARTHACCESS_TOKEN:
-        headers["Authorization"] = f"Bearer {EARTHACCESS_TOKEN}"
+    token = _get_token()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
     
     while True:
         try:
@@ -348,7 +353,7 @@ def download_pace_bgc(
     lon_range: Tuple[float, float] = (-121, -119),
     lat_range: Tuple[float, float] = (33, 35),
     time_range: Tuple[str, str] = ("2024-09-06", "2024-09-26"),
-    output_dir: str = "data/input/tchla_comparison/pace_bgc",
+    output_dir: str = "experiments/seabass_validation/inputs/pace_bgc",
     collection_key: str = DEFAULT_COLLECTION_KEY,
     extract_chla: bool = False,
 ) -> List[str]:
@@ -385,8 +390,9 @@ def download_pace_bgc(
             }
             try:
                 headers = {}
-                if EARTHACCESS_TOKEN:
-                    headers["Authorization"] = f"Bearer {EARTHACCESS_TOKEN}"
+                token = _get_token()
+                if token:
+                    headers["Authorization"] = f"Bearer {token}"
                 response = requests.get(CMR_GRANULE_SEARCH_URL, params=params, headers=headers, timeout=60)
                 response.raise_for_status()
                 results = response.json()
@@ -503,20 +509,21 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if not EARTHACCESS_TOKEN:
+    if not _get_token():
         raise RuntimeError(
-            "Missing Earthdata token: set EARTHACCESS_TOKEN in your environment.\n"
+            "Missing Earthdata token. Set EARTHDATA_TOKEN (preferred) or EARTHACCESS_TOKEN.\n"
             "Example:\n"
-            "  export EARTHACCESS_TOKEN='...'\n"
+            "  export EARTHDATA_TOKEN='...'\n"
         )
 
     lon_range: Tuple[float, float] = (-121.0, -119.0)
     lat_range: Tuple[float, float] = (33.0, 35.0)
     time_range: Tuple[str, str] = ("2024-09-06", "2024-09-26")
-    output_dir = PROJECT_ROOT / "data" / "input" / "tchla_comparison" / "pace_bgc"
+    output_dir = PROJECT_ROOT / "experiments" / "seabass_validation" / "inputs" / "pace_bgc"
 
     if args.config:
-        cfg = load_config_from_file(args.config)
+        config_file = args.config if args.config.is_absolute() else (PROJECT_ROOT / args.config)
+        cfg = load_config_from_file(config_file)
         west, south, east, north = get_bbox(cfg)
         cfg_time_range = get_time_range(cfg)
         if cfg_time_range is None:
@@ -526,7 +533,7 @@ if __name__ == "__main__":
         lon_range = (float(west), float(east))
         lat_range = (float(south), float(north))
         time_range = (str(cfg_time_range[0]), str(cfg_time_range[1]))
-        input_dir = get_input_dir(cfg, PROJECT_ROOT)
+        input_dir = get_input_dir(cfg, PROJECT_ROOT, config_dir=config_file.parent)
         output_dir = input_dir / "pace_bgc"
 
     if args.lon_range is not None:

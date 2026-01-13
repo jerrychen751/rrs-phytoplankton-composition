@@ -6,7 +6,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from typing import Union, List, Tuple, Optional
-from core.prediction import run_sdp
+from models.sdp_pigments.core.prediction import run_sdp
 
 def create_dataset(
     rrs_paths: Union[str, List[str]], 

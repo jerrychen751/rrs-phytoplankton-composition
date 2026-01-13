@@ -6,7 +6,7 @@ Python implementation of the Kramer Rrs SDP method for predicting phytoplankton 
 
 **Original MATLAB implementation**: https://github.com/sashajane19/Rrs_pigments
 
-**Model training code**: `core/model.py` adapted from Dylan Catlett: https://github.com/dcat4/bioOptix_and_PFTs
+**Model training code**: `models/sdp_pigments/core/model.py` adapted from Dylan Catlett: https://github.com/dcat4/bioOptix_and_PFTs
 
 ## Papers
 
@@ -16,8 +16,12 @@ Kramer, S.J., S. Maritorena, I. Cetinić, P.J. Werdell, D.A. Siegel (2024). Phyt
 
 ## Usage
 
-Train model: `python scripts/training/train_model.py`
+Train model: `python models/sdp_pigments/train.py`
 
 Run predictions: `python main.py` (prompts for config file path)
 
-See `config/template.yaml` for the experiment configuration format (nested schema with `experiment`, `sdp`, and `io` sections).
+Experiment configs live under `experiments/<experiment_name>/config.yaml`.
+Inputs/outputs are intended to be experiment-local under `experiments/<experiment_name>/{inputs,outputs}/`.
+Shared model assets live under `models/sdp_pigments/`.
+
+See `experiments/_template/config.yaml` for the experiment configuration format (nested schema with `experiment`, `sdp`, and `io` sections).

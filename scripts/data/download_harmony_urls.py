@@ -1,10 +1,25 @@
+#!/usr/bin/env python3
+"""Download Harmony-produced assets from a pasted JSON response.
+
+This is a legacy helper script from the earlier "mapped (L3) download" workflow.
+It expects you to paste a Harmony JSON response (e.g. from the browser or an API
+call) and will download all links with `rel: data`.
+
+For PACE OCI L2 validation matchups, prefer `scripts/data/download_pace_rrs.py`,
+which performs CMR search + download + matchup extraction end-to-end.
+"""
+
 import json
 import requests
 import os
 import sys
 from pathlib import Path
+from typing import Optional
 
-EARTHACCESS_TOKEN = os.getenv("EARTHACCESS_TOKEN")
+def _get_token() -> Optional[str]:
+    # Prefer EARTHDATA_TOKEN (matches earthaccess convention), but support the
+    # repo legacy env var name as well.
+    return os.getenv("EARTHDATA_TOKEN") or os.getenv("EARTHACCESS_TOKEN")
 
 def get_output_dir():
     """Returns a path to Downloads/pace_harmony_data inside the user's home directory."""
@@ -31,11 +46,12 @@ def get_json_input():
         return ""
 
 def download_harmony_files():
-    if not EARTHACCESS_TOKEN:
+    token = _get_token()
+    if not token:
         raise RuntimeError(
-            "Missing Earthdata token: set EARTHACCESS_TOKEN in your environment.\n"
+            "Missing Earthdata token. Set EARTHDATA_TOKEN (preferred) or EARTHACCESS_TOKEN.\n"
             "Example:\n"
-            "  export EARTHACCESS_TOKEN='...'\n"
+            "  export EARTHDATA_TOKEN='...'\n"
         )
     # 1. Get JSON from user paste
     json_str = get_json_input()
@@ -64,7 +80,7 @@ def download_harmony_files():
     # 3. Configure Session with Authentication
     session = requests.Session()
     session.headers.update({
-        'Authorization': f'Bearer {EARTHACCESS_TOKEN}',
+        'Authorization': f'Bearer {token}',
         'User-Agent': 'HarmonyDownloadScript/1.0'
     })
 

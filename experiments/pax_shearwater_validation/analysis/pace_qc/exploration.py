@@ -12,7 +12,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[4]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-PACE_L2_DIR = PROJECT_ROOT / "experiments" / "seabass_validation" / "inputs" / "pace_bgc"
+PACE_L2_DIR = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "inputs" / "pace_bgc"
 filepath = PACE_L2_DIR / "PACE_OCI.20240906T202704.L2.OC_BGC.V3_1.nc"
 
 # Essentially 32-bit flag --> storage of 32 independent flags at once; allows for efficient storage of multiple potential flags

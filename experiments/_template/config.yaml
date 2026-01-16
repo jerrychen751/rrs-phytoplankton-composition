@@ -11,7 +11,7 @@
 schema_version: 1
 
 experiment:
-  # Required: Experiment name used for output folder naming (e.g., "initial_test", "seabass_validation")
+  # Required: Experiment name used for output folder naming (e.g., "initial_test", "pax_shearwater_validation")
   name: "experiment_name"
 
   description: "Brief description of the experiment purpose and data"
@@ -82,7 +82,7 @@ validation:
 
   qc:
     l2_flags:
-      # Bits to exclude from `l2_flags` (see `experiments/seabass_validation/analysis/pace_qc/notes.md`).
+      # Bits to exclude from `l2_flags` (see `experiments/pax_shearwater_validation/analysis/pace_qc/notes.md`).
       exclude_bits: [0, 1, 3, 4, 8, 9, 14, 16, 25, 26]
 
     spectral_homogeneity:

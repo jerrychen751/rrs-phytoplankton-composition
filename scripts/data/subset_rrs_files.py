@@ -30,7 +30,7 @@ import numpy as np
 import xarray as xr
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATA_DIR = PROJECT_ROOT / "experiments" / "seabass_validation" / "inputs" / "rrs"
+DEFAULT_DATA_DIR = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "inputs" / "rrs"
 DEFAULT_LAT_RANGE = (33.0, 35.0)
 DEFAULT_LON_RANGE = (-121.0, -119.0)
 DEFAULT_TOLERANCE_NM = 2.5

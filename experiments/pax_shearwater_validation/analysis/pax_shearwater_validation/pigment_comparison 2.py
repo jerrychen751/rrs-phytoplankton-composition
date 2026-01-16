@@ -12,11 +12,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[4]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-SDP_RESULT_PATH = PROJECT_ROOT / "experiments" / "seabass_validation" / "outputs" / "sdp_results.nc"
+SDP_RESULT_PATH = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "outputs" / "sdp_results.nc"
 HPLC_PATH = (
     PROJECT_ROOT
     / "experiments"
-    / "seabass_validation"
+    / "pax_shearwater_validation"
     / "inputs"
     / "validation"
     / "hplc"

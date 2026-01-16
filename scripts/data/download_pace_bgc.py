@@ -353,7 +353,7 @@ def download_pace_bgc(
     lon_range: Tuple[float, float] = (-121, -119),
     lat_range: Tuple[float, float] = (33, 35),
     time_range: Tuple[str, str] = ("2024-09-06", "2024-09-26"),
-    output_dir: str = "experiments/seabass_validation/inputs/pace_bgc",
+    output_dir: str = "experiments/pax_shearwater_validation/inputs/pace_bgc",
     collection_key: str = DEFAULT_COLLECTION_KEY,
     extract_chla: bool = False,
 ) -> List[str]:
@@ -519,7 +519,7 @@ if __name__ == "__main__":
     lon_range: Tuple[float, float] = (-121.0, -119.0)
     lat_range: Tuple[float, float] = (33.0, 35.0)
     time_range: Tuple[str, str] = ("2024-09-06", "2024-09-26")
-    output_dir = PROJECT_ROOT / "experiments" / "seabass_validation" / "inputs" / "pace_bgc"
+    output_dir = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "inputs" / "pace_bgc"
 
     if args.config:
         config_file = args.config if args.config.is_absolute() else (PROJECT_ROOT / args.config)

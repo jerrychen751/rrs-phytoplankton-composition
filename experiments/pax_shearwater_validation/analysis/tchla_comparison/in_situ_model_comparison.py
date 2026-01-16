@@ -14,17 +14,17 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 # Paths
-SDP_RESULT_PATH = PROJECT_ROOT / "experiments" / "seabass_validation" / "outputs" / "sdp_results.nc"
+SDP_RESULT_PATH = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "outputs" / "sdp_results.nc"
 HPLC_PATH = (
     PROJECT_ROOT
     / "experiments"
-    / "seabass_validation"
+    / "pax_shearwater_validation"
     / "inputs"
     / "validation"
     / "hplc"
     / "PACE-PAX_SHEARWATER_HPLC_pigments.csv"
 )
-PACE_L2_DIR = PROJECT_ROOT / "experiments" / "seabass_validation" / "inputs" / "pace_bgc"
+PACE_L2_DIR = PROJECT_ROOT / "experiments" / "pax_shearwater_validation" / "inputs" / "pace_bgc"
 OUTPUT_DIR = Path(__file__).parent
 
 def get_bounds(hplc_df: pd.DataFrame, buffer: float = 0.2):

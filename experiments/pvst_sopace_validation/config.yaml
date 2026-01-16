@@ -39,7 +39,7 @@ validation:
 
   qc:
     l2_flags:
-      # See `experiments/seabass_validation/analysis/pace_qc/notes.md`.
+      # See `experiments/pax_shearwater_validation/analysis/pace_qc/notes.md`.
       exclude_bits: [0, 1, 3, 4, 8, 9, 14, 16, 25, 26]
     spectral_homogeneity:
       max_cv: 0.15

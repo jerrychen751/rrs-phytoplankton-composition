@@ -4,8 +4,8 @@ This is a small debugging/QA utility that loads the configured NetCDF output
 and reports the lat/lon locations that have at least one finite value.
 
 Usage:
-  python experiments/seabass_validation/analysis/seabass_validation/check_sdp_coverage.py
-  python experiments/seabass_validation/analysis/seabass_validation/check_sdp_coverage.py experiments/seabass_validation/config.yaml
+  python experiments/pax_shearwater_validation/analysis/pax_shearwater_validation/check_sdp_coverage.py
+  python experiments/pax_shearwater_validation/analysis/pax_shearwater_validation/check_sdp_coverage.py experiments/pax_shearwater_validation/config.yaml
 """
 
 from __future__ import annotations

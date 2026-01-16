@@ -143,7 +143,45 @@ def extract_pigment_columns(df: pd.DataFrame) -> pd.DataFrame:
     Extract pigment concentration columns from HPLC DataFrame.
     
     Returns DataFrame with only pigment columns.
+    Also normalizes common SeaBASS pigment name variants to canonical names.
     """
+    # Normalize common SeaBASS/loader naming variants to canonical pigment names.
+    alias_map = {
+        # SeaBASS-style lowercase with underscores/hyphens
+        'tot_chl_a': 'Tot_Chl_a',
+        'dv_chl_a': 'DV_Chl_a',
+        'mv_chl_b': 'MV_Chl_b',
+        'chl_c1c2': 'Chl_c1c2',
+        'chl_c3': 'Chl_c3',
+        'but-fuco': 'But-fuco',
+        'hex-fuco': 'Hex-fuco',
+        'allo': 'Allo',
+        'zea': 'Zea',
+        'neo': 'Neo',
+        'viola': 'Viola',
+        'fuco': 'Fuco',
+        'perid': 'Perid',
+        'tchl': 'Tchl',
+        # Model-style camelcase variants (lowercase input)
+        'tchla': 'Tchla',
+        'dvchla': 'DVchla',
+        'butfuco': 'ButFuco',
+        'hexfuco': 'HexFuco',
+        'mvchlb': 'MVchlb',
+        'chlc12': 'Chlc12',
+        'chlc3': 'Chlc3',
+    }
+
+    rename_map = {}
+    for col in df.columns:
+        canonical = alias_map.get(col.lower())
+        if canonical and canonical != col:
+            # Avoid collisions if canonical already exists.
+            if canonical not in df.columns:
+                rename_map[col] = canonical
+    if rename_map:
+        df = df.rename(columns=rename_map)
+
     # Standard pigment names (matching model output)
     pigment_names = [
         'Tot_Chl_a', 'Tchla',  # Total chlorophyll a
@@ -168,71 +206,6 @@ def extract_pigment_columns(df: pd.DataFrame) -> pd.DataFrame:
         if any(pig in col for pig in pigment_names):
             pigment_cols.append(col)
     
-    return df[pigment_cols + ['station', 'date', 'time', 'lon', 'lat']].copy()
+    meta_cols = ['station', 'date', 'time', 'lon', 'lat']
+    return df[meta_cols + pigment_cols].copy()
 
-
-def match_stations_to_pace(
-    hplc_df: pd.DataFrame,
-    pace_lons: np.ndarray,
-    pace_lats: np.ndarray,
-    max_distance_km: float = 5.0
-) -> Dict[int, Tuple[int, int]]:
-    """
-    Match HPLC stations to nearest PACE pixel.
-
-    Notes:
-    - This matcher assumes a mapped/gridded product with 1-D longitude and latitude
-      coordinate vectors (PACE L3m-style).
-    - It is not compatible with PACE OCI L2 swath products where lat/lon are 2-D.
-      For L2 in-situ validation matchups, use `scripts/data/download_pace_rrs.py`.
-    
-    Parameters:
-    -----------
-    hplc_df : pd.DataFrame
-        HPLC data with 'lon', 'lat', 'station' columns
-    pace_lons : np.ndarray
-        PACE longitude grid
-    pace_lats : np.ndarray
-        PACE latitude grid
-    max_distance_km : float
-        Maximum distance for matching (km)
-    
-    Returns:
-    --------
-    matches : dict
-        Dictionary mapping station number to (lon_idx, lat_idx) in PACE grid
-    """
-    try:
-        from geopy.distance import geodesic
-    except ImportError:
-        raise ImportError("geopy is required for match_stations_to_pace. Install with: pip install geopy")
-    
-    matches = {}
-    
-    for station in hplc_df['station'].unique():
-        station_data = hplc_df[hplc_df['station'] == station].iloc[0]
-        in_situ_lat = station_data['lat']
-        in_situ_lon = station_data['lon']
-        
-        # Find nearest PACE pixel
-        min_dist = np.inf
-        best_idx = None
-        
-        for i in range(len(pace_lons)):
-            for j in range(len(pace_lats)):
-                pace_lat = pace_lats[j]
-                pace_lon = pace_lons[i]
-                
-                dist = geodesic(
-                    (in_situ_lat, in_situ_lon),
-                    (pace_lat, pace_lon)
-                ).kilometers
-                
-                if dist < min_dist:
-                    min_dist = dist
-                    best_idx = (i, j)
-        
-        if min_dist <= max_distance_km:
-            matches[station] = best_idx
-    
-    return matches

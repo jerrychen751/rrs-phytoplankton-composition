@@ -22,7 +22,7 @@ experiment:
 validation:
   hplc:
     # SeaBASS-derived in-situ pigment dataset used for matchups.
-    path: "inputs/validation/hplc/PACE-PAX_SHEARWATER_HPLC_pigments.csv"
+    path: "inputs/validation/in_situ_hplc/PACE-PAX_SHEARWATER_HPLC_pigments.csv"
     columns:
       lat: "lat"
       lon: "lon"

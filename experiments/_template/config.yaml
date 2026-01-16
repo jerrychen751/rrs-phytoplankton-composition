@@ -44,7 +44,7 @@ validation:
     # Expected columns when using CSV:
     # - lat/lon (decimal degrees)
     # - date/time (UTC; configurable formats below)
-    path: "inputs/validation/hplc/<hplc_dataset>.csv"
+    path: "inputs/validation/in_situ_hplc/<hplc_dataset>.csv"
 
     # Column mapping for CSV inputs (ignored for SeaBASS .sb inputs where fields are parsed).
     columns:

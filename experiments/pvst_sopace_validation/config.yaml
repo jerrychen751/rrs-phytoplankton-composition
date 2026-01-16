@@ -26,7 +26,7 @@ experiment:
 validation:
   hplc:
     # Directory containing one or more SeaBASS HPLC files.
-    path: "inputs/validation/hplc"
+    path: "inputs/validation/in_situ_hplc"
 
   matching:
     time_window_hours: 3

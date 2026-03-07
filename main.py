@@ -1,22 +1,28 @@
-"""Main entry point for SDP predictions.
+"""
+- Rrs under netCDF groups (e.g., `geophysical_data/Rrs`)
+- lat/lon are 2-D swath arrays (e.g., `navigation_data/latitude`, `longitude`)
+- the model workflow requires *spectral preprocessing* (interpolation, smoothing,
+  trimming) prior to taking a second derivative; see `docs/notes.md`
 
-This script operates on *mapped* (gridded) Rrs inputs (e.g., PACE OCI L3m files)
-under the configured `io.input_dir/{rrs,sss,sst}/` folders.
+Expected inputs (under `io.input_dir/`):
+  - `rrs/`: L2 AOP granules
+  - `sst/`: gridded SST
+  - `sss/`: gridded SSS
+  - `validation.hplc`: in-situ HPLC dataset used for matchups
 
-It is not compatible with PACE OCI *L2* swath products (e.g., `L2.OC_AOP`), where
-Rrs lives under netCDF groups and is not on a lat/lon grid. For L2 validation
-matchups, use `scripts/data/download_pace_rrs.py` to build a per-station matchup
-dataset.
 """
 
 import sys
 from pathlib import Path
+from typing import Optional
 
 # Add project root to path
 project_root = Path(__file__).resolve().parent
 sys.path.insert(0, str(project_root))
 
-from utils.pace import sdp_from_pace
+import numpy as np
+import pandas as pd
+import xarray as xr
 from utils.config_loader import (
     load_config_from_file,
     get_experiment_name,
@@ -26,20 +32,261 @@ from utils.config_loader import (
     get_input_dir,
     get_output_dir,
     get_output_filename,
+    resolve_path,
 )
 
+from utils.pace_l2 import (
+    L2Matchup,
+    extract_l2_matchup,
+    list_nc_files as list_nc_paths,
+    load_hplc_observations,
+    select_candidate_granules,
+)
 
-def list_nc_files(directory: Path) -> list[str]:
-    """Collect NetCDF files, supporting both .nc and .nc4 extensions."""
-    files = set()
-    for pattern in ("*.nc", "*.nc4"):
-        for path in directory.glob(pattern):
-            files.add(path.resolve())
-    return sorted(str(path) for path in files)
+def _is_pace_l2_rrs_file(path: Path) -> bool:
+    name = path.name
+    return ".L2." in name or ".L2_" in name
+
+
+def _infer_lat_lon_names(da: xr.DataArray) -> tuple[str, str]:
+    lat_candidates = ("lat", "latitude")
+    lon_candidates = ("lon", "longitude")
+    lat_name = next((n for n in lat_candidates if n in da.coords or n in da.dims), None)
+    lon_name = next((n for n in lon_candidates if n in da.coords or n in da.dims), None)
+    if lat_name is None or lon_name is None:
+        raise KeyError(
+            f"Unable to infer lat/lon coordinate names for {da.name}. "
+            f"Found coords={list(da.coords)}, dims={list(da.dims)}"
+        )
+    return lat_name, lon_name
+
+
+def _sample_gridded_field(
+    da: xr.DataArray,
+    *,
+    lat: float,
+    lon: float,
+    time: Optional[pd.Timestamp],
+) -> float:
+    lat_name, lon_name = _infer_lat_lon_names(da)
+    sel = da
+    if time is not None and "time" in sel.dims:
+        sel = sel.sel(time=np.datetime64(time.to_datetime64()), method="nearest")
+    sampled = sel.interp({lat_name: lat, lon_name: lon}, method="nearest")
+    return float(sampled.values)
+
+
+def _run_l2_validation_pipeline(
+    config: dict,
+    *,
+    config_file: Path,
+    pigments: Optional[list[str]],
+) -> xr.Dataset:
+    validation = config.get("validation") or {}
+    if not validation:
+        raise ValueError(
+            "PACE L2 inputs were detected, but your config does not include a 'validation' section. "
+            "For L2 workflows, configure 'validation.hplc', 'validation.matching', 'validation.qc', "
+            "and 'validation.spectral'."
+        )
+
+    input_dir = get_input_dir(config, project_root, config_dir=config_file.parent)
+    rrs_dir = input_dir / "rrs"
+    l2_granules = [p for p in list_nc_paths(rrs_dir) if _is_pace_l2_rrs_file(p)]
+    if not l2_granules:
+        raise FileNotFoundError(f"No PACE L2 AOP granules found under {rrs_dir}")
+
+    # ---- Load in-situ observations
+    hplc_cfg = validation.get("hplc") or {}
+    hplc_path_raw = hplc_cfg.get("path")
+    if not hplc_path_raw:
+        raise ValueError("validation.hplc.path is required for the L2 validation pipeline")
+
+    hplc_path = resolve_path(str(hplc_path_raw), project_root, config_dir=config_file.parent)
+
+    columns_cfg = hplc_cfg.get("columns") or {}
+    datetime_cfg = hplc_cfg.get("datetime") or {}
+
+    obs_df = load_hplc_observations(
+        hplc_path,
+        lat_key=str(columns_cfg.get("lat", "lat")),
+        lon_key=str(columns_cfg.get("lon", "lon")),
+        date_key=str(columns_cfg.get("date", "date")),
+        time_key=str(columns_cfg.get("time", "time")),
+        station_key=str(columns_cfg.get("station", "station")),
+        date_format=str(datetime_cfg.get("date_format", "%Y%m%d")),
+        time_format=str(datetime_cfg.get("time_format", "%H:%M:%S")),
+        timezone=str(datetime_cfg.get("timezone", "UTC")),
+    )
+
+    if obs_df.empty:
+        raise ValueError(f"No valid observations found in {hplc_path}")
+
+    # ---- Matching + QC + spectral parameters
+    matching = validation.get("matching") or {}
+    qc = validation.get("qc") or {}
+    spectral = validation.get("spectral") or {}
+
+    time_window_hours = float(matching.get("time_window_hours", 3))
+    max_distance_km = float(matching.get("max_distance_km", 5))
+    max_granules_per_obs = int(matching.get("max_granules_per_obs", 3))
+
+    if "neighborhood" in matching:
+        raise ValueError(
+            "validation.matching.neighborhood is no longer supported. "
+            "This pipeline uses the single nearest pixel only (no neighborhood aggregation)."
+        )
+
+    l2_flags_cfg = (qc.get("l2_flags") or {})
+    exclude_bits = list(l2_flags_cfg.get("exclude_bits", [0, 1, 3, 4, 8, 9, 14, 16, 25, 26]))
+
+    pix_validity = (qc.get("pixel_spectral_validity") or {})
+    min_finite_fraction = float(pix_validity.get("min_finite_fraction", 0.95))
+
+    interp_nm = int(spectral.get("interp_nm", 1))
+    smooth_nm = int(spectral.get("smooth_nm", 5))
+    edge_trim_nm = int(spectral.get("edge_trim_nm", 4))
+    final_range_nm = list(spectral.get("final_range_nm", [400, 700]))
+    if interp_nm != 1:
+        raise ValueError(
+            f"validation.spectral.interp_nm must be 1 for SDP inputs (got {interp_nm}). "
+            "The model coefficients are defined on a 1 nm wavelength grid."
+        )
+    if smooth_nm != 5:
+        raise ValueError(
+            f"validation.spectral.smooth_nm must be 5 for SDP inputs (got {smooth_nm}). "
+            "Second-derivative features are extremely noise-sensitive; the model expects 5 nm smoothing."
+        )
+
+    # ---- Build matchups: one per in-situ obs (best granule that passes QC)
+    matchups: list[L2Matchup] = []
+    for obs_idx, row in enumerate(obs_df.itertuples(index=False)):
+        obs_time: pd.Timestamp = row.obs_time
+        obs_lat = float(row.obs_lat)
+        obs_lon = float(row.obs_lon)
+        station = None if pd.isna(row.station) else str(row.station)
+
+        candidates = select_candidate_granules(
+            l2_granules,
+            obs_time,
+            time_window_hours=time_window_hours,
+            max_granules=max_granules_per_obs,
+        )
+        if not candidates:
+            continue
+
+        best: Optional[L2Matchup] = None
+        for granule in candidates:
+            matchup = extract_l2_matchup(
+                granule,
+                obs_index=obs_idx,
+                obs_time=obs_time,
+                obs_lat=obs_lat,
+                obs_lon=obs_lon,
+                station=station,
+                exclude_bits=exclude_bits,
+                min_finite_fraction=min_finite_fraction,
+                interp_nm=interp_nm,
+                smooth_nm=smooth_nm,
+                edge_trim_nm=edge_trim_nm,
+                final_range_nm=final_range_nm,
+            )
+            if matchup is None:
+                continue
+            if matchup.distance_km > max_distance_km:
+                continue
+            best = matchup
+            break
+
+        if best is not None:
+            matchups.append(best)
+
+    if not matchups:
+        raise RuntimeError("No valid matchups produced (all candidates failed QC / distance / time gates).")
+
+    # ---- Sample SST/SSS at matchup points (required by the model)
+    sss_paths = list_nc_paths(input_dir / "sss")
+    sst_paths = list_nc_paths(input_dir / "sst")
+    if not sss_paths:
+        raise FileNotFoundError(f"Missing SSS inputs under {input_dir / 'sss'} (need one or more .nc/.nc4 files)")
+    if not sst_paths:
+        raise FileNotFoundError(f"Missing SST inputs under {input_dir / 'sst'} (need one or more .nc/.nc4 files)")
+
+    sss_ds = xr.open_mfdataset([str(p) for p in sss_paths], combine="by_coords")
+    sst_ds = xr.open_mfdataset([str(p) for p in sst_paths], combine="by_coords")
+    try:
+        if "smap_sss" not in sss_ds:
+            raise KeyError(f"SSS dataset missing variable 'smap_sss'. Found: {list(sss_ds.data_vars)}")
+        if "sst" not in sst_ds:
+            raise KeyError(f"SST dataset missing variable 'sst'. Found: {list(sst_ds.data_vars)}")
+
+        sss_da = sss_ds["smap_sss"]
+        sst_da = sst_ds["sst"]
+
+        sss_vals: list[float] = []
+        sst_vals: list[float] = []
+        keep: list[L2Matchup] = []
+        for m in matchups:
+            sss_val = _sample_gridded_field(sss_da, lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
+            sst_val = _sample_gridded_field(sst_da, lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
+            if not (np.isfinite(sss_val) and np.isfinite(sst_val)):
+                continue
+            keep.append(m)
+            sss_vals.append(sss_val)
+            sst_vals.append(sst_val)
+    finally:
+        sss_ds.close()
+        sst_ds.close()
+
+    if not keep:
+        raise RuntimeError("All matchups were dropped due to missing SST/SSS values at matchup points.")
+
+    matchups = keep
+    sss_np = np.asarray(sss_vals, dtype=float)
+    sst_np = np.asarray(sst_vals, dtype=float)
+
+    # ---- Run SDP model
+    wavelengths = np.arange(400, 701, 1)
+    rrs = np.stack([m.rrs_400_700_1nm for m in matchups], axis=0)
+    rrs_df = pd.DataFrame(rrs, columns=wavelengths)
+
+    from models.sdp_pigments.core.prediction import run_sdp
+
+    sdp = run_sdp(rrs_df, wavelengths, sst_np, sss_np, pigments=pigments)
+
+    # ---- Build output Dataset
+    data_vars = {}
+    for col in sdp.columns:
+        var_name = col.replace(" ", "_").replace("+", "_").replace("-", "_").lower()
+        data_vars[var_name] = (["matchup"], sdp[col].to_numpy(dtype=float))
+
+    ds = xr.Dataset(
+        data_vars,
+        coords={
+            "matchup": np.arange(len(matchups), dtype=int),
+            "wavelength": wavelengths.astype(int),
+        },
+    )
+
+    ds["rrs"] = (["matchup", "wavelength"], rrs.astype(float))
+    ds["obs_index"] = (["matchup"], np.asarray([m.obs_index for m in matchups], dtype=int))
+    ds["obs_time"] = (["matchup"], np.asarray([np.datetime64(m.obs_time.to_datetime64()) for m in matchups]))
+    ds["obs_lat"] = (["matchup"], np.asarray([m.obs_lat for m in matchups], dtype=float))
+    ds["obs_lon"] = (["matchup"], np.asarray([m.obs_lon for m in matchups], dtype=float))
+    ds["pixel_lat"] = (["matchup"], np.asarray([m.pixel_lat for m in matchups], dtype=float))
+    ds["pixel_lon"] = (["matchup"], np.asarray([m.pixel_lon for m in matchups], dtype=float))
+    ds["distance_km"] = (["matchup"], np.asarray([m.distance_km for m in matchups], dtype=float))
+    ds["sss"] = (["matchup"], sss_np)
+    ds["sst"] = (["matchup"], sst_np)
+
+    ds.attrs["experiment"] = get_experiment_name(config)
+    ds.attrs["config_file"] = str(config_file)
+    return ds
+
 
 if __name__ == "__main__":
     # Prompt for config file path
-    config_input = input("Enter path to config file (relative to project root or absolute): ").strip()
+    config_input = input("Enter path to experiment config file (e.g., experiments/<name>/config.py): ").strip()
     if not config_input:
         raise ValueError("Config file path cannot be empty")
     
@@ -63,25 +310,22 @@ if __name__ == "__main__":
     input_dir = get_input_dir(config, project_root, config_dir=config_file.parent)
     
     # Collect file paths
-    rrs_paths = list_nc_files(input_dir / "rrs")
-    sss_paths = list_nc_files(input_dir / "sss")
-    sst_paths = list_nc_files(input_dir / "sst")
-
-    if any(".L2." in Path(p).name or ".L2_" in Path(p).name for p in rrs_paths):
-        raise ValueError(
-            "Detected what look like PACE L2 swath files in your Rrs inputs. "
-            "`main.py` expects mapped/gridded Rrs (L3m-style) files under "
-            f"{input_dir / 'rrs'}.\n\n"
-            "If you're trying to do in-situ validation against L2 OC_AOP, run:\n"
-            "  python scripts/data/download_pace_rrs.py --config <your_config.yaml>"
-        )
+    rrs_paths = list_nc_paths(input_dir / "rrs")
+    sss_paths = list_nc_paths(input_dir / "sss")
+    sst_paths = list_nc_paths(input_dir / "sst")
     
-    print(f"Found {len(rrs_paths)} RRS, {len(sss_paths)} SSS, {len(sst_paths)} SST files")
+    print(f"Found {len(rrs_paths)} Rrs, {len(sss_paths)} SSS, {len(sst_paths)} SST files")
     print(f"Bbox: {bbox}")
     print(f"Pigments: {'all' if pigments is None else ', '.join(pigments)}")
-    
-    # Run model
-    result = sdp_from_pace(rrs_paths, sss_paths, sst_paths, bbox, pigments)
+
+    is_l2 = any(_is_pace_l2_rrs_file(p) for p in rrs_paths)
+    if not is_l2:
+        raise ValueError(
+            "This repo no longer supports mapped/gridded (L3m-style) Rrs inputs via `main.py`. "
+            "Please provide PACE OCI L2 AOP granules under `io.input_dir/rrs/`."
+        )
+
+    result = _run_l2_validation_pipeline(config, config_file=config_file, pigments=pigments)
     
     # Save results
     output_dir = get_output_dir(config, project_root, config_dir=config_file.parent)

@@ -12,53 +12,56 @@ import pandas as pd
 from typing import Tuple, Dict, Any
 
 def rrsModelTrain(
-    RrsD: np.ndarray, # 2nd derivative of Rrs residuals
-    hplc_i: np.ndarray, # pigment concentrations for a signle pigment (ground truth for training)
+    RrsD: np.ndarray,
+    hplc_i: np.ndarray,
     pft_index: str,
-    n_permutations: int, 
-    max_pcs: int, 
-    k: int, 
-    mdl_pick_metric: str
+    n_permutations: int,
+    max_pcs: int,
+    k: int,
+    mdl_pick_metric: str,
 ) -> Tuple[np.ndarray, np.ndarray, pd.DataFrame, Dict[str, Any]]:
     """
-    Train PCA-based regression model for pigment prediction.
-    
-    Uses 75/25 train/validation split with k-fold CV within training set.
-    pft_index constraints: 'pigment' (>=0), 'EOFs' (unconstrained), 'compositions' (0-1).
-    mdl_pick_metric: 'R2', 'RMSE', 'avg', 'med', or 'MAE' (McKinna et al. 2021).
-    
-    Note: max_pcs must be <= 0.75 * (1-1/k) * n_samples.
-    
-    Returns: (coefficients [n_permutations, n_wavelengths], intercepts [n_permutations],
-             summary_gofs DataFrame, all_gofs dict).
+    Train PCA-based regression model for pigment prediction. One set of coefficients are generated for one pigment at a time.
+
+    Uses a 75/25 train/validation split with k-fold CV within the training set. For each permutation, the mean k-fold coefficients are unstandardized and validated against the held-out 25%.
+
+    Note: max_pcs must be <= 0.75 * (1 - 1/k) * n_samples.
+
+    Args:
+        RrsD: 2nd derivative of Rrs residuals, shape (n_samples, n_wavelengths).
+        hplc_i: Pigment concentrations for a single pigment (ground truth), shape (n_samples,).
+        pft_index: Constraint type. 'pigment' (>= 0), 'EOFs' (unconstrained), or 'compositions' (0-1).
+        n_permutations: Number of random 75/25 train/validation splits.
+        max_pcs: Maximum number of principal components to evaluate.
+        k: Number of folds for cross-validation within each training split.
+        mdl_pick_metric: Metric for selecting the optimal number of PCs. One of 'R2', 'RMSE', 'avg', 'med', or 'MAE' (McKinna et al. 2021).
+
+    Returns:
+        coefficients: Unstandardized regression coefficients, shape (n_wavelengths, n_permutations).
+        intercepts: Unstandardized intercepts, shape (n_permutations,).
+        summary_gofs: DataFrame with mean/std of R2, RMSE, percent error, bias, and MAE across permutations.
+        all_gofs: Dict of per-permutation goodness-of-fit arrays.
     """
     
-    coefficients = None
-    intercepts = None
-    summary_gofs = None
-    all_gofs = None
-
-    # check for NaNs
+    # Cannot contain NaNs in training data for either HPLC or 2nd derivative of Rrs residuals
     if np.isnan(hplc_i).any():
-        print('hplc_i data has NaNs. remove them and try again plz')
-        return coefficients, intercepts, summary_gofs, all_gofs
-    elif np.isnan(RrsD).any():
-        print('spectral data has NaNs. remove them and try again plz')
-        return coefficients, intercepts, summary_gofs, all_gofs
-    
-    # check that RrsD and pft have the same number of rows
+        raise ValueError('hplc_i contains NaN values')
+    if np.isnan(RrsD).any():
+        raise ValueError('RrsD contains NaN values')
+
+    # RrsD and hplc_i must have 1:1 row correspondence (not necessarily cols)
     if RrsD.shape[0] != hplc_i.shape[0]:
-        print('RrsD and hplc_i must have the same number of rows')
-        return coefficients, intercepts, summary_gofs, all_gofs
+        raise ValueError(
+            f'RrsD and hplc_i row count mismatch: {RrsD.shape[0]} vs {hplc_i.shape[0]}'
+        )
     
-    max_components = max_pcs
-    spectra_4_mdl = RrsD
+    # Set random number generator seed for reproducibility
+    np.random.seed(100)
 
-    # set random number generator seed for reproducibility
-    np.random.seed(42)
-
-    # preallocate coefficients array
-    mean_betas_nonstd = np.zeros((spectra_4_mdl.shape[1], n_permutations))
+    # Create coefficients array: pigment = RrsD @ betas + alpha
+    # pigment is (n_samples) -> n_samples is flattened (lon, lat, time)
+    # RrsD is (n_samples, n_wavelengths)
+    mean_betas_nonstd = np.zeros((RrsD.shape[1], n_permutations)) # (n_wavelengths, n_permutations)
     mean_alphas_nonstd = np.zeros(n_permutations)
 
     # preallocate statistics/metrics arrays
@@ -78,13 +81,13 @@ def rrsModelTrain(
         training_indices = np.random.permutation(len(hplc_i))[:int(len(hplc_i) * 0.75)]
 
         pigs_training = hplc_i[training_indices]
-        spectra_4_mdl_training = spectra_4_mdl[training_indices,:]
+        RrsD_training = RrsD[training_indices,:]
 
         # validation data
         pigs_validate = hplc_i
         pigs_validate = np.delete(pigs_validate,training_indices)
-        spectra_4_mdl_validate = spectra_4_mdl
-        spectra_4_mdl_validate = np.delete(spectra_4_mdl_validate, training_indices, axis=0)
+        RrsD_validate = RrsD
+        RrsD_validate = np.delete(RrsD_validate, training_indices, axis=0)
 
         # get set up for k-fold cross validation
 
@@ -111,7 +114,7 @@ def rrsModelTrain(
 
         # preallocate arrays
         n_modes_to_use = np.zeros(k, dtype=int)
-        betas = np.zeros((spectra_4_mdl_training.shape[1], k))
+        betas = np.zeros((RrsD_training.shape[1], k))
         alpha = np.zeros(k)
         CV_R2s = np.zeros(k)
         CV_RMSEs = np.zeros(k)
@@ -121,9 +124,9 @@ def rrsModelTrain(
             these_CV_indices = CV_indices[j, :]
             these_CV_indices = these_CV_indices[~np.isnan(these_CV_indices)].astype(int)
             CV_valid_pigs = pigs_training[these_CV_indices]
-            CV_valid_spec = spectra_4_mdl_training[these_CV_indices, :]
+            CV_valid_spec = RrsD_training[these_CV_indices, :]
             CV_train_pigs = np.delete(pigs_training, these_CV_indices, axis=0)
-            CV_train_spec = np.delete(spectra_4_mdl_training, these_CV_indices, axis=0)
+            CV_train_spec = np.delete(RrsD_training, these_CV_indices, axis=0)
             
             # standardize spectra for PCs
             CV_train_spec = (CV_train_spec - np.mean(CV_train_spec, axis=0)) / np.std(CV_train_spec, axis=0)
@@ -132,8 +135,8 @@ def rrsModelTrain(
             # Manual PCA without centering using SVD
             U, S, VT = np.linalg.svd(CV_train_spec, full_matrices=False)
 
-            CV_EOFs_train = VT[:max_components].T
-            CV_AFs_train = U[:, :max_components] * S[:max_components]
+            CV_EOFs_train = VT[:max_pcs].T
+            CV_AFs_train = U[:, :max_pcs] * S[:max_pcs]
 
             # Preallocate arrays to hold evaluation metrics
             n_val = len(CV_valid_pigs)
@@ -241,8 +244,8 @@ def rrsModelTrain(
         std_alphas = np.std(alpha)
 
         # Compute standard deviation and mean across samples (i.e., along axis 0)
-        spec_std = np.std(spectra_4_mdl_training, axis=0, ddof=0)  # MATLAB default is population std (ddof=0)
-        spec_mean = np.mean(spectra_4_mdl_training, axis=0)
+        spec_std = np.std(RrsD_training, axis=0, ddof=0)  # MATLAB default is population std (ddof=0)
+        spec_mean = np.mean(RrsD_training, axis=0)
 
         # Unstandardize beta and alpha for model i
         mean_betas_nonstd[:, i] = mean_betas / spec_std
@@ -250,7 +253,7 @@ def rrsModelTrain(
 
         # Validate on the data you set aside previously for this ith run of the n_permutations using mean betas of this
         # permutation from cross-validation, and store g.o.f stats across permutations:
-        modeled_pigs = spectra_4_mdl_validate @ mean_betas_nonstd[:,i] + mean_alphas_nonstd[i]
+        modeled_pigs = RrsD_validate @ mean_betas_nonstd[:,i] + mean_alphas_nonstd[i]
 
         if pft_index == 'pigment':
             modeled_pigs[modeled_pigs < 0] = 0

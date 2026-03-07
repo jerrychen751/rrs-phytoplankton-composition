@@ -1,6 +1,8 @@
-"""Load experiment configuration from YAML files."""
+"""Load experiment configuration from YAML or Python config files."""
 
 import os
+import importlib.util
+import types
 import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
@@ -34,6 +36,11 @@ def _resolve_path(path_str: str, project_root: Path, config_dir: Optional[Path])
     if config_dir is not None:
         return config_dir / path
     return project_root / path
+
+
+def resolve_path(path_str: str, project_root: Path, config_dir: Optional[Path] = None) -> Path:
+    """Public wrapper for config path resolution rules."""
+    return _resolve_path(path_str, project_root, config_dir)
 
 
 def get_bbox(config: Dict[str, Any]) -> Tuple[float, float, float, float]:
@@ -164,10 +171,13 @@ def get_output_filename(config: Dict[str, Any]) -> str:
 
 def load_config_from_file(config_path: Path) -> Dict[str, Any]:
     """
-    Load experiment configuration from YAML file path.
+    Load experiment configuration from a config file path.
     
-    config_path can be relative or absolute.
-    Returns dict with experiment parameters.
+    Supported formats:
+    - YAML (`.yaml` / `.yml`)
+    - Python (`.py`) containing either a `CONFIG` dict or a `get_config()` function.
+
+    `config_path` can be relative or absolute.
     """
     config_file = Path(config_path)
     if not config_file.is_absolute():
@@ -180,7 +190,38 @@ def load_config_from_file(config_path: Path) -> Dict[str, Any]:
             f"Config file not found: {config_file}"
         )
     
-    with open(config_file, 'r') as f:
-        config = yaml.safe_load(f)
-    
-    return config
+    suffix = config_file.suffix.lower()
+    if suffix in {".yaml", ".yml"}:
+        with open(config_file, "r") as f:
+            config = yaml.safe_load(f)
+        if not isinstance(config, dict):
+            raise ValueError(f"Expected YAML config to be a mapping/dict: {config_file}")
+        return config
+
+    if suffix == ".py":
+        module_name = f"_rrs_sdp_experiment_config_{abs(hash(str(config_file)))}"
+        spec = importlib.util.spec_from_file_location(module_name, config_file)
+        if spec is None or spec.loader is None:
+            raise ImportError(f"Unable to import config module from {config_file}")
+        module = importlib.util.module_from_spec(spec)
+        assert isinstance(module, types.ModuleType)
+        spec.loader.exec_module(module)
+
+        if hasattr(module, "get_config"):
+            config = module.get_config()
+        elif hasattr(module, "CONFIG"):
+            config = getattr(module, "CONFIG")
+        else:
+            raise AttributeError(
+                f"Python config file must define CONFIG (dict) or get_config(): {config_file}"
+            )
+
+        if not isinstance(config, dict):
+            raise TypeError(
+                f"Python config must evaluate to a dict; got {type(config).__name__}: {config_file}"
+            )
+        return config
+
+    raise ValueError(
+        f"Unsupported config format '{suffix}'. Expected .yaml/.yml or .py: {config_file}"
+    )

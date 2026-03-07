@@ -5,7 +5,7 @@ and reports the lat/lon locations that have at least one finite value.
 
 Usage:
   python experiments/pax_shearwater_validation/analysis/pax_shearwater_validation/check_sdp_coverage.py
-  python experiments/pax_shearwater_validation/analysis/pax_shearwater_validation/check_sdp_coverage.py experiments/pax_shearwater_validation/config.yaml
+  python experiments/pax_shearwater_validation/analysis/pax_shearwater_validation/check_sdp_coverage.py experiments/pax_shearwater_validation/config.py
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from utils.config_loader import (
 
 
 def main() -> None:
-    default_config = Path(__file__).resolve().parents[2] / "config.yaml"
+    default_config = Path(__file__).resolve().parents[2] / "config.py"
     config_input = sys.argv[1] if len(sys.argv) > 1 else str(default_config)
 
     config_path = Path(config_input)
@@ -46,6 +46,20 @@ def main() -> None:
     print(f"Loading SDP results from {result_path}")
     ds = xr.open_dataset(result_path)
 
+    # Two common output shapes in this repo:
+    # - mapped/gridded outputs: (lat, lon)
+    # - validation/matchup outputs: (matchup)
+    if "matchup" in ds.dims:
+        print("Detected matchup-style SDP output (dimension: matchup).")
+        print(f"Matchups: {ds.dims['matchup']}")
+        print(f"Variables: {list(ds.data_vars)}")
+        if "distance_km" in ds:
+            dist = ds["distance_km"].values
+            finite = np.isfinite(dist)
+            if finite.any():
+                print(f"Distance (km): min={np.nanmin(dist):.3f}, median={np.nanmedian(dist):.3f}, max={np.nanmax(dist):.3f}")
+        return
+
     print("Checking for valid data locations...")
 
     if "t_chla" in ds:
@@ -56,6 +70,11 @@ def main() -> None:
 
     if "time" in valid_da.dims:
         valid_da = valid_da.any(dim="time")
+
+    if "lat" not in ds or "lon" not in ds:
+        print(f"Dataset is not gridded (missing lat/lon coords). Dims: {dict(ds.dims)}")
+        print(f"Variables: {list(ds.data_vars)}")
+        return
 
     lats = ds["lat"].values
     lons = ds["lon"].values
@@ -97,4 +116,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

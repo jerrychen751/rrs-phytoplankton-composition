@@ -6,9 +6,8 @@ specified latitude/longitude bounding box and, optionally, a set of target
 wavelengths.
 
 This is part of the legacy "L3 mapped Rrs" workflow. The current validation
-workflow uses PACE OCI *L2* AOP granules and produces per-station matchup
-datasets via `scripts/data/download_pace_rrs.py`, which does not require this
-post-processing step.
+workflow uses PACE OCI *L2* AOP granules downloaded via RS-Kit
+(`rskit.plugins.NasaEarthdata`), which does not require this post-processing step.
 
 Example usage:
     python subset_rrs_files.py \

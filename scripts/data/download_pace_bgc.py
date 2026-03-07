@@ -76,6 +76,36 @@ def search_collections(session: requests.Session, short_name: str) -> Optional[d
     return None
 
 
+def resolve_collection_concept_id(
+    session: requests.Session,
+    *,
+    short_name: str,
+    version: Optional[str] = None,
+) -> Optional[str]:
+    """
+    Resolve a CMR collection concept ID.
+
+    Prefer RS-Kit's NASA Earthdata plugin when available, but fall back to a
+    direct CMR collection search (which preserves the legacy "first match"
+    behavior when multiple versions exist).
+    """
+    try:
+        from rskit.plugins import NasaEarthdata  # type: ignore
+    except ModuleNotFoundError:
+        NasaEarthdata = None  # type: ignore[assignment]
+
+    if NasaEarthdata is not None:
+        try:
+            return NasaEarthdata().get_collection_concept_id(short_name=short_name, version=version)
+        except Exception:
+            pass
+
+    entry = search_collections(session, short_name)
+    if not entry:
+        return None
+    return entry.get("id")
+
+
 def find_pace_collection(
     session: requests.Session,
     collection_key: str = DEFAULT_COLLECTION_KEY,
@@ -93,9 +123,8 @@ def find_pace_collection(
 
     print(f"Searching for PACE OCI collection ({collection_key})...")
     for short_name in collection_cfg.get("short_names", []):
-        collection = search_collections(session, short_name)
-        if collection:
-            collection_id = collection.get('id')
+        collection_id = resolve_collection_concept_id(session, short_name=short_name)
+        if collection_id:
             print(f"Found collection: {short_name} (ID: {collection_id})")
             return collection_id
     print(f"Unable to locate collection for key '{collection_key}'.")

@@ -5,8 +5,8 @@ This is a legacy helper script from the earlier "mapped (L3) download" workflow.
 It expects you to paste a Harmony JSON response (e.g. from the browser or an API
 call) and will download all links with `rel: data`.
 
-For PACE OCI L2 validation matchups, prefer `scripts/data/download_pace_rrs.py`,
-which performs CMR search + download + matchup extraction end-to-end.
+For PACE OCI L2 validation downloads, prefer RS-Kit's NASA Earthdata plugin
+(`rskit.plugins.NasaEarthdata`). See `docs/rskit_api.md` for the recommended flow.
 """
 
 import json

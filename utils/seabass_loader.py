@@ -140,10 +140,7 @@ def load_hplc_data(filepath: Path) -> pd.DataFrame:
 
 def extract_pigment_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Extract pigment concentration columns from HPLC DataFrame.
-    
-    Returns DataFrame with only pigment columns.
-    Also normalizes common SeaBASS pigment name variants to canonical names.
+    Extract pigment concentration columns from HPLC DataFrame using a set of known pigment shorthand names/aliases.
     """
     # Normalize common SeaBASS/loader naming variants to canonical pigment names.
     alias_map = {

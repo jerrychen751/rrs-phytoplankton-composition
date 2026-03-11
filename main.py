@@ -61,6 +61,78 @@ def _infer_lat_lon_names(da: xr.DataArray) -> tuple[str, str]:
     return lat_name, lon_name
 
 
+def _parse_time_attr(raw: str) -> pd.Timestamp:
+    """
+    Parse a time string from a NetCDF global attribute.
+
+    Handles two common NASA conventions:
+    - ISO 8601: ``2025-05-01T00:00:00.000Z``
+    - Day-of-year: ``2025-118T12:00:00.000`` (used by SMAP SSS products)
+
+    The day-of-year format has a hyphen between the 4-digit year and a
+    3-digit ordinal day, which ``pd.Timestamp`` does not recognise. We
+    detect it with a regex and convert via ``datetime.strptime``.
+    """
+    import re as _re
+    from datetime import datetime
+
+    s = str(raw).strip().rstrip("Z")
+    # Day-of-year: "2025-118T12:00:00.000"
+    m = _re.match(r"^(\d{4})-(\d{3})T(.+)$", s)
+    if m:
+        year, doy, time_part = m.group(1), m.group(2), m.group(3)
+        # Truncate fractional seconds to 6 digits (microseconds) to
+        # avoid strptime errors with >6 decimal places.
+        if "." in time_part:
+            base, frac = time_part.split(".", 1)
+            time_part = f"{base}.{frac[:6]}"
+        dt = datetime.strptime(f"{year}-{doy}T{time_part}", "%Y-%jT%H:%M:%S.%f")
+        return pd.Timestamp(dt, tz="UTC")
+
+    ts = pd.Timestamp(s)
+    if ts.tzinfo is None:
+        ts = ts.tz_localize("UTC")
+    return ts
+
+
+def _parse_file_center_time(path: Path) -> Optional[pd.Timestamp]:
+    """
+    Parse the temporal midpoint of a gridded ancillary file from its
+    ``time_coverage_start`` / ``time_coverage_end`` global attributes.
+
+    Returns None if the attributes are missing or unparseable.
+    """
+    try:
+        with xr.open_dataset(path, decode_times=False) as ds:
+            t0_raw = ds.attrs.get("time_coverage_start")
+            t1_raw = ds.attrs.get("time_coverage_end")
+        if t0_raw is None or t1_raw is None:
+            return None
+        t0 = _parse_time_attr(t0_raw)
+        t1 = _parse_time_attr(t1_raw)
+        return t0 + (t1 - t0) / 2
+    except Exception:
+        return None
+
+
+def _pick_nearest_file(
+    file_times: list[tuple[Path, pd.Timestamp]],
+    target: pd.Timestamp,
+) -> Path:
+    """
+    From a list of (path, center_time) pairs, return the path whose
+    center_time is closest to *target*.
+    """
+    if not file_times:
+        raise FileNotFoundError("No ancillary files with parseable time coverage")
+    best_path, best_dt = file_times[0][0], abs((file_times[0][1] - target).total_seconds())
+    for p, t in file_times[1:]:
+        dt = abs((t - target).total_seconds())
+        if dt < best_dt:
+            best_path, best_dt = p, dt
+    return best_path
+
+
 def _sample_gridded_field(
     da: xr.DataArray,
     *,
@@ -68,6 +140,12 @@ def _sample_gridded_field(
     lon: float,
     time: Optional[pd.Timestamp],
 ) -> float:
+    """
+    Sample a gridded DataArray at a single (lat, lon) point using
+    nearest-neighbor interpolation.  If the DataArray has a ``time``
+    dimension and *time* is provided, the nearest timestep is selected
+    first.
+    """
     lat_name, lon_name = _infer_lat_lon_names(da)
     sel = da
     if time is not None and "time" in sel.dims:
@@ -205,6 +283,12 @@ def _run_l2_validation_pipeline(
         raise RuntimeError("No valid matchups produced (all candidates failed QC / distance / time gates).")
 
     # ---- Sample SST/SSS at matchup points (required by the model)
+    #
+    # These ancillary files are typically 8-day composites with NO time
+    # dimension — just (lat, lon).  We can't merge them with
+    # open_mfdataset(combine="by_coords") because there's nothing to
+    # concatenate along.  Instead, for each matchup we pick the file
+    # whose time_coverage midpoint is closest to the observation time.
     sss_paths = list_nc_paths(input_dir / "sss")
     sst_paths = list_nc_paths(input_dir / "sst")
     if not sss_paths:
@@ -212,31 +296,40 @@ def _run_l2_validation_pipeline(
     if not sst_paths:
         raise FileNotFoundError(f"Missing SST inputs under {input_dir / 'sst'} (need one or more .nc/.nc4 files)")
 
-    sss_ds = xr.open_mfdataset([str(p) for p in sss_paths], combine="by_coords")
-    sst_ds = xr.open_mfdataset([str(p) for p in sst_paths], combine="by_coords")
-    try:
-        if "smap_sss" not in sss_ds:
-            raise KeyError(f"SSS dataset missing variable 'smap_sss'. Found: {list(sss_ds.data_vars)}")
-        if "sst" not in sst_ds:
-            raise KeyError(f"SST dataset missing variable 'sst'. Found: {list(sst_ds.data_vars)}")
+    sss_file_times = [(p, t) for p in sss_paths if (t := _parse_file_center_time(p)) is not None]
+    sst_file_times = [(p, t) for p in sst_paths if (t := _parse_file_center_time(p)) is not None]
+    if not sss_file_times:
+        raise ValueError(
+            f"None of the SSS files under {input_dir / 'sss'} have parseable "
+            "time_coverage_start/end attributes"
+        )
+    if not sst_file_times:
+        raise ValueError(
+            f"None of the SST files under {input_dir / 'sst'} have parseable "
+            "time_coverage_start/end attributes"
+        )
 
-        sss_da = sss_ds["smap_sss"]
-        sst_da = sst_ds["sst"]
+    sss_vals: list[float] = []
+    sst_vals: list[float] = []
+    keep: list[L2Matchup] = []
+    for m in matchups:
+        sss_file = _pick_nearest_file(sss_file_times, m.obs_time)
+        sst_file = _pick_nearest_file(sst_file_times, m.obs_time)
 
-        sss_vals: list[float] = []
-        sst_vals: list[float] = []
-        keep: list[L2Matchup] = []
-        for m in matchups:
-            sss_val = _sample_gridded_field(sss_da, lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
-            sst_val = _sample_gridded_field(sst_da, lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
-            if not (np.isfinite(sss_val) and np.isfinite(sst_val)):
-                continue
-            keep.append(m)
-            sss_vals.append(sss_val)
-            sst_vals.append(sst_val)
-    finally:
-        sss_ds.close()
-        sst_ds.close()
+        with xr.open_dataset(sss_file) as sss_ds, xr.open_dataset(sst_file) as sst_ds:
+            if "smap_sss" not in sss_ds:
+                raise KeyError(f"SSS file missing variable 'smap_sss'. Found: {list(sss_ds.data_vars)}")
+            if "sst" not in sst_ds:
+                raise KeyError(f"SST file missing variable 'sst'. Found: {list(sst_ds.data_vars)}")
+
+            sss_val = _sample_gridded_field(sss_ds["smap_sss"], lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
+            sst_val = _sample_gridded_field(sst_ds["sst"], lat=m.pixel_lat, lon=m.pixel_lon, time=m.obs_time)
+
+        if not (np.isfinite(sss_val) and np.isfinite(sst_val)):
+            continue
+        keep.append(m)
+        sss_vals.append(sss_val)
+        sst_vals.append(sst_val)
 
     if not keep:
         raise RuntimeError("All matchups were dropped due to missing SST/SSS values at matchup points.")

@@ -100,7 +100,10 @@ def _get_l2_rrs_wavelengths(path: Path, geophys: xr.Dataset, rrs_var: str = "Rrs
     n_bands = int(rrs.sizes[band_dim])
 
     # Prefer an in-group wavelength variable if present.
-    for candidate in ("wavelength", "wavelength_3d", band_dim):
+    # Try wavelength_3d first — in PACE OCI L2 files, the Rrs band dimension
+    # is named "wavelength_3d" (172 visible/NIR bands), while the full sensor
+    # "wavelength" array has 286 bands and won't match.
+    for candidate in ("wavelength_3d", "wavelength", band_dim):
         if candidate in geophys:
             wl = geophys[candidate].values
             try:
@@ -117,9 +120,12 @@ def _get_l2_rrs_wavelengths(path: Path, geophys: xr.Dataset, rrs_var: str = "Rrs
             decode_cf=True,
             decode_timedelta=False,
         ) as band:
-            for candidate in ("wavelength", "wavelength_3d"):
+            for candidate in ("wavelength_3d", "wavelength"):
                 if candidate in band:
-                    return _coerce_wavelength_vector(band[candidate].values, n_bands)
+                    try:
+                        return _coerce_wavelength_vector(band[candidate].values, n_bands)
+                    except ValueError:
+                        pass
     except Exception:
         # Let the error below be the actionable one.
         pass

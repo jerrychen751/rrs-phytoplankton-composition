@@ -233,18 +233,26 @@ def gsm_invert(
     return iops_opt
 
 def get_rrs_residuals(
-    Rrs: pd.DataFrame, 
-    temp: np.ndarray, 
-    sal: np.ndarray, 
-    wavelengths: np.ndarray
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    Rrs: pd.DataFrame,
+    temp: np.ndarray,
+    sal: np.ndarray,
+    wavelengths: np.ndarray,
+    return_modeled: bool = False,
+) -> Union[Tuple[pd.DataFrame, pd.DataFrame], Tuple[pd.DataFrame, pd.DataFrame, np.ndarray]]:
     """
     Compute Rrs residuals (measured - modeled) using Kramer et al. (2022) method.
-    
+
     Converts above-surface Rrs to below-surface rrs using Lee et al. (2002) conversion.
     Uses GSM inversion (Gordon et al. 1988) to model IOPs, then reconstructs Rrs.
-    
-    Returns: (rrsD, RrsD) - below-surface and above-surface residuals.
+
+    Args:
+        return_modeled: If True, also return the reconstructed modeled Rrs array
+            (n_wavelengths, n_samples) for QC diagnostics. Backward-compatible:
+            existing callers omit this and get the same 2-tuple.
+
+    Returns:
+        (rrsD, RrsD) when return_modeled=False.
+        (rrsD, RrsD, modRrs) when return_modeled=True.
     """
     
     n = len(temp) # number of samples/spectra
@@ -333,4 +341,6 @@ def get_rrs_residuals(
     rrsD = rrs.T - modrrs
     RrsD = Rrs.T - modRrs
 
+    if return_modeled:
+        return rrsD, RrsD, modRrs
     return rrsD, RrsD

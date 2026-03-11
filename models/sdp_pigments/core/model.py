@@ -153,7 +153,6 @@ def rrsModelTrain(
 
             # Loop over number of components used in model
             for l in range(1, CV_AFs_train.shape[1]+1):
-                print(f"({i}, {l})") # added in for visibility on progress
                 # Multiple linear regression (MLR) using first l amplitude functions
                 lin_model = LinearRegression()
                 lin_model.fit(CV_AFs_train[:, :l], CV_train_pigs)

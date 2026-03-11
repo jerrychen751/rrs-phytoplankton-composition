@@ -223,6 +223,70 @@ def preprocess_rrs_spectrum(
     return out_wl.astype(float), out_rrs
 
 
+def _haversine_km_vec(
+    lat1: float,
+    lon1: float,
+    lat2: np.ndarray,
+    lon2: np.ndarray,
+) -> np.ndarray:
+    """
+    Great-circle distance (km) from one point to an array of lat/lon points.
+
+    Vectorized version of haversine_km(): uses NumPy broadcasting so that
+    all distances are computed in a single pass through C-level array ops,
+    avoiding a Python loop over N pixels.
+
+    Args:
+        lat1: Scalar latitude of the reference point (degrees).
+        lon1: Scalar longitude of the reference point (degrees).
+        lat2: Array of latitudes (degrees), any shape.
+        lon2: Array of longitudes (degrees), same shape as lat2.
+
+    Returns:
+        Array of distances in km, same shape as lat2/lon2.
+    """
+    r_km = 6371.0088
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(((lon2 - lon1 + 180.0) % 360.0) - 180.0)
+
+    a = np.sin(dphi / 2) ** 2 + np.cos(phi1) * np.cos(phi2) * np.sin(dlambda / 2) ** 2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+    return r_km * c
+
+
+@dataclass(frozen=True)
+class L2NeighborhoodMatchup:
+    """
+    Result of a neighborhood-averaged L2 matchup.
+
+    Instead of a single nearest pixel, this holds the median spectrum
+    computed from all valid pixels within a radius of the station. The
+    spectrum is in native PACE bands (not yet interpolated to 1 nm).
+    """
+    obs_index: int
+    obs_time: pd.Timestamp
+    obs_lat: float
+    obs_lon: float
+    station: Optional[str]
+
+    granule_path: Path
+    granule_time: Optional[pd.Timestamp]
+
+    center_i: int
+    center_j: int
+    center_lat: float
+    center_lon: float
+    center_distance_km: float
+
+    wavelengths_nm: np.ndarray    # native PACE band centers
+    rrs_median_native: np.ndarray  # median spectrum in native bands
+
+    n_pixels_in_radius: int   # total pixels within radius (before QC)
+    n_valid_pixels: int       # pixels that passed QC + finite checks
+
+
 @dataclass(frozen=True)
 class L2Matchup:
     obs_index: int
@@ -374,6 +438,181 @@ def extract_l2_matchup(
         pixel_lon=float(pixel_lon),
         distance_km=float(distance_km),
         rrs_400_700_1nm=rrs_400_700.astype(float),
+    )
+
+
+def extract_l2_neighborhood_matchup(
+    granule_path: Path,
+    *,
+    obs_index: int,
+    obs_time: pd.Timestamp,
+    obs_lat: float,
+    obs_lon: float,
+    station: Optional[str],
+    exclude_bits: Sequence[int],
+    min_finite_fraction: float,
+    radius_km: float,
+    min_valid_pixels: int,
+    max_distance_km: float,
+) -> Optional[L2NeighborhoodMatchup]:
+    """
+    Extract a neighborhood-averaged L2 spectrum within a radius of a station.
+
+    Instead of returning the single nearest pixel (like extract_l2_matchup),
+    this function:
+      1. Finds the nearest pixel as the center point.
+      2. Extracts a bounding box of pixels around that center.
+      3. Computes haversine distance from the station to each pixel.
+      4. Applies QC masks (l2_flags, finite fraction) to each pixel.
+      5. Takes the nanmedian across all valid pixels within the radius.
+
+    The returned spectrum is in **native PACE bands** (not interpolated to 1 nm).
+    The caller is responsible for running preprocess_rrs_spectrum() on the result,
+    which is intentional: median of raw spectra then preprocess is better than
+    preprocessing each pixel then averaging (avoids smoothing-of-smoothing and
+    lets spatial outlier rejection work on unsmoothed data).
+
+    Args:
+        granule_path: Path to a PACE OCI L2 AOP NetCDF file.
+        obs_index: Integer index of this observation (for bookkeeping).
+        obs_time: UTC timestamp of the in-situ observation.
+        obs_lat: Latitude of the in-situ station (degrees).
+        obs_lon: Longitude of the in-situ station (degrees).
+        station: Optional station identifier string.
+        exclude_bits: l2_flags bit positions that disqualify a pixel.
+        min_finite_fraction: Minimum fraction of spectral bands that must be
+            finite for a pixel to be considered valid.
+        radius_km: Search radius around the station (km).
+        min_valid_pixels: Minimum number of QC-passing pixels required for a
+            valid matchup. Below this, the median is too unstable.
+        max_distance_km: Maximum distance from station to nearest pixel center.
+            If the nearest pixel is farther than this, the station is outside
+            the granule's useful coverage and we return None.
+
+    Returns:
+        L2NeighborhoodMatchup with native-band median spectrum, or None if
+        the matchup fails QC (too few valid pixels, station too far, etc.).
+    """
+    granule_path = granule_path.expanduser().resolve()
+    granule_time = parse_pace_l2_granule_time(granule_path)
+
+    exclude_mask = 0
+    for bit in exclude_bits:
+        exclude_mask |= 1 << int(bit)
+
+    with xr.open_dataset(
+        granule_path,
+        group="navigation_data",
+        mask_and_scale=True,
+        decode_cf=True,
+        decode_timedelta=False,
+    ) as nav, xr.open_dataset(
+        granule_path,
+        group="geophysical_data",
+        mask_and_scale=True,
+        decode_cf=True,
+        decode_timedelta=False,
+    ) as geophys:
+        if "latitude" not in nav or "longitude" not in nav:
+            raise KeyError(f"navigation_data missing latitude/longitude: {granule_path.name}")
+        if "Rrs" not in geophys or "l2_flags" not in geophys:
+            raise KeyError(f"geophysical_data missing Rrs/l2_flags: {granule_path.name}")
+
+        lat2d = np.asarray(nav["latitude"].values, dtype=float)
+        lon2d = np.asarray(nav["longitude"].values, dtype=float)
+
+        # Step 1: Find nearest pixel as center reference.
+        center_i, center_j = _nearest_pixel(lat2d, lon2d, obs_lat, obs_lon)
+        center_lat = float(lat2d[center_i, center_j])
+        center_lon = float(lon2d[center_i, center_j])
+        center_dist_km = haversine_km(obs_lat, obs_lon, center_lat, center_lon)
+
+        if center_dist_km > max_distance_km:
+            return None
+
+        # Step 2: Compute bounding box in index space.
+        # PACE OCI pixels are ~1 km at nadir, wider at swath edges.
+        # Using 0.8 km as a conservative lower bound on pixel spacing
+        # ensures the bounding box is large enough to capture all pixels
+        # within radius_km even at nadir.
+        margin = int(math.ceil(radius_km / 0.8))
+        n_lines, n_pixels = lat2d.shape
+        i_lo = max(0, center_i - margin)
+        i_hi = min(n_lines, center_i + margin + 1)
+        j_lo = max(0, center_j - margin)
+        j_hi = min(n_pixels, center_j + margin + 1)
+
+        # Step 3: Extract subarrays within bounding box.
+        sub_lat = lat2d[i_lo:i_hi, j_lo:j_hi]
+        sub_lon = lon2d[i_lo:i_hi, j_lo:j_hi]
+
+        # Step 4: Compute haversine distance from station to each pixel.
+        dist_km = _haversine_km_vec(obs_lat, obs_lon, sub_lat, sub_lon)
+        within_radius = dist_km <= radius_km
+
+        rrs_da = geophys["Rrs"]
+        flags_da = geophys["l2_flags"]
+        wl_native = _get_l2_rrs_wavelengths(granule_path, geophys, rrs_var="Rrs")
+        n_bands = len(wl_native)
+
+        # Extract Rrs and flags subarrays (dims: lines, pixels, [bands]).
+        sub_rrs = np.asarray(
+            rrs_da.isel({
+                rrs_da.dims[0]: slice(i_lo, i_hi),
+                rrs_da.dims[1]: slice(j_lo, j_hi),
+            }).values,
+            dtype=float,
+        )  # shape: (sub_lines, sub_pixels, n_bands)
+        sub_flags = flags_da.isel({
+            flags_da.dims[0]: slice(i_lo, i_hi),
+            flags_da.dims[1]: slice(j_lo, j_hi),
+        }).values  # shape: (sub_lines, sub_pixels)
+
+        # Step 5: Build QC mask.
+        # flags_clean: pixel-level l2_flags check (no excluded bits set).
+        # Replace NaN with 0 before int cast to avoid undefined behavior
+        # (NaN.astype(int64) produces garbage values in NumPy).
+        flags_finite = np.isfinite(sub_flags)
+        safe_flags = np.where(flags_finite, sub_flags, 0).astype(np.int64)
+        flags_clean = flags_finite & ((safe_flags & exclude_mask) == 0)
+
+        # finite_ok: per-pixel spectral completeness check.
+        finite_fraction = np.isfinite(sub_rrs).mean(axis=-1)
+        finite_ok = finite_fraction >= min_finite_fraction
+
+        valid_mask = within_radius & flags_clean & finite_ok
+
+        n_in_radius = int(within_radius.sum())
+        n_valid = int(valid_mask.sum())
+
+        if n_valid < min_valid_pixels:
+            return None
+
+        # Step 6: Extract valid spectra and compute median.
+        # Reshape sub_rrs to (n_sub_pixels, n_bands) then select valid rows.
+        flat_rrs = sub_rrs.reshape(-1, n_bands)
+        flat_valid = valid_mask.ravel()
+        valid_spectra = flat_rrs[flat_valid]  # shape: (n_valid, n_bands)
+
+        median_spectrum = np.nanmedian(valid_spectra, axis=0)
+
+    return L2NeighborhoodMatchup(
+        obs_index=int(obs_index),
+        obs_time=obs_time,
+        obs_lat=float(obs_lat),
+        obs_lon=float(obs_lon),
+        station=station,
+        granule_path=granule_path,
+        granule_time=granule_time,
+        center_i=int(center_i),
+        center_j=int(center_j),
+        center_lat=float(center_lat),
+        center_lon=float(center_lon),
+        center_distance_km=float(center_dist_km),
+        wavelengths_nm=wl_native,
+        rrs_median_native=median_spectrum,
+        n_pixels_in_radius=n_in_radius,
+        n_valid_pixels=n_valid,
     )
 
 

@@ -78,6 +78,7 @@ from utils.pace_l2 import (
     preprocess_rrs_spectrum,
     haversine_km,
     extract_l2_matchup,
+    extract_l2_neighborhood_matchup,
     select_candidate_granules,
     list_nc_files,
 )
@@ -622,6 +623,155 @@ def load_l2_rrs_matchups(
 
 
 # ---------------------------------------------------------------------------
+# 2c. L2-interp (neighborhood-averaged) Rrs matchup
+# ---------------------------------------------------------------------------
+
+
+def load_l2_interp_rrs_matchups(
+    l2_rrs_dir: Path,
+    hplc_df: pd.DataFrame,
+    spectral_cfg: dict,
+    l2_interp_cfg: dict,
+) -> pd.DataFrame:
+    """
+    Match HPLC stations to neighborhood-averaged L2 swath-level Rrs spectra.
+
+    Like load_l2_rrs_matchups(), but instead of extracting a single nearest
+    pixel, this computes the median Rrs spectrum from all valid pixels within
+    a radius of each station. This reduces single-pixel noise while preserving
+    finer spatial resolution than L3 (~3 km effective footprint vs ~11 km).
+
+    The median is computed on native PACE bands (before interpolation to 1 nm),
+    then the result is preprocessed once. This ordering is important:
+      - Spatial outlier rejection works best on raw (unsmoothed) data.
+      - One preprocess_rrs_spectrum() call per station instead of N per pixel.
+      - Avoids smoothing-of-smoothing ambiguity.
+
+    Uses the same granule-grouping optimization as the L2 loader: each ~400 MB
+    file is opened once for all stations that could match it.
+
+    Returns:
+        DataFrame with same columns as L3/L2 loaders (station, lat, lon, date,
+        pixel_dist_km, rrs_0..rrs_300) plus diagnostics: n_valid_pixels,
+        n_pixels_in_radius.
+    """
+    all_granules = list_nc_files(l2_rrs_dir)
+    print(f"  Found {len(all_granules)} L2 granules in {l2_rrs_dir.name}")
+    if not all_granules:
+        print(f"  WARNING: no L2 files found — run download_l2_rrs.py first")
+        return pd.DataFrame()
+
+    time_window_hours = l2_interp_cfg["time_window_hours"]
+    max_distance_km = l2_interp_cfg["max_distance_km"]
+    max_granules = l2_interp_cfg["max_granules_per_obs"]
+    qc_exclude_bits = l2_interp_cfg["qc_exclude_bits"]
+    min_finite_fraction = l2_interp_cfg["min_finite_fraction"]
+    radius_km = l2_interp_cfg["radius_km"]
+    min_valid_pixels = l2_interp_cfg["min_valid_pixels"]
+
+    # Build per-observation candidate lists, then invert to granule -> obs list.
+    obs_list: list[dict] = []
+    for sample_id, row in hplc_df.iterrows():
+        date_int = int(row["date"])
+        obs_date = pd.Timestamp(str(date_int), tz="UTC") + pd.Timedelta(hours=12)
+        obs_list.append({
+            "sample_id": str(sample_id),
+            "lat": float(row["lat"]),
+            "lon": float(row["lon"]),
+            "date": date_int,
+            "obs_time": obs_date,
+        })
+
+    # Map: granule path -> list of obs indices that could use it
+    granule_to_obs: dict[Path, list[int]] = {}
+    for obs_idx, obs in enumerate(obs_list):
+        candidates = select_candidate_granules(
+            all_granules, obs["obs_time"],
+            time_window_hours=time_window_hours,
+            max_granules=max_granules,
+        )
+        for gran_path in candidates:
+            granule_to_obs.setdefault(gran_path, []).append(obs_idx)
+
+    # Track which observations already have a match (first valid wins)
+    matched: dict[int, dict] = {}
+
+    for gran_path, obs_indices in granule_to_obs.items():
+        pending = [i for i in obs_indices if i not in matched]
+        if not pending:
+            continue
+
+        for obs_idx in pending:
+            obs = obs_list[obs_idx]
+            try:
+                matchup = extract_l2_neighborhood_matchup(
+                    gran_path,
+                    obs_index=obs_idx,
+                    obs_time=obs["obs_time"],
+                    obs_lat=obs["lat"],
+                    obs_lon=obs["lon"],
+                    station=obs["sample_id"],
+                    exclude_bits=qc_exclude_bits,
+                    min_finite_fraction=min_finite_fraction,
+                    radius_km=radius_km,
+                    min_valid_pixels=min_valid_pixels,
+                    max_distance_km=max_distance_km,
+                )
+            except Exception as e:
+                print(f"    {obs['sample_id']}: L2-interp extraction error ({e})")
+                continue
+
+            if matchup is None:
+                continue
+
+            # Preprocess the native-band median to 400-700 @ 1nm.
+            try:
+                _, rrs_1nm = preprocess_rrs_spectrum(
+                    matchup.wavelengths_nm,
+                    matchup.rrs_median_native,
+                    interp_nm=spectral_cfg["interp_nm"],
+                    smooth_nm=spectral_cfg["smooth_nm"],
+                    edge_trim_nm=spectral_cfg["edge_trim_nm"],
+                    final_range_nm=spectral_cfg["final_range_nm"],
+                )
+            except ValueError as e:
+                print(f"    {obs['sample_id']}: spectral preprocessing failed ({e})")
+                continue
+
+            if not np.isfinite(rrs_1nm).all():
+                continue
+
+            entry: dict = {
+                "station": obs["sample_id"],
+                "lat": obs["lat"],
+                "lon": obs["lon"],
+                "date": obs["date"],
+                "pixel_lat": matchup.center_lat,
+                "pixel_lon": matchup.center_lon,
+                "pixel_dist_km": matchup.center_distance_km,
+                "n_pixels_in_radius": matchup.n_pixels_in_radius,
+                "n_valid_pixels": matchup.n_valid_pixels,
+            }
+            for i, v in enumerate(rrs_1nm):
+                entry[f"rrs_{i}"] = v
+            matched[obs_idx] = entry
+
+    matchups = [matched[i] for i in sorted(matched)]
+    result = pd.DataFrame(matchups)
+    n_total = len(hplc_df)
+    n_matched = len(result)
+
+    if n_matched > 0:
+        med_pix = int(np.median(result["n_valid_pixels"]))
+        print(f"  {n_matched}/{n_total} matched to valid L2-interp neighborhoods "
+              f"(median {med_pix} valid pixels per matchup)")
+    else:
+        print(f"  {n_matched}/{n_total} matched (no valid L2-interp neighborhoods)")
+
+    return result
+
+
+# ---------------------------------------------------------------------------
 # 3. SST / SSS sampling  (with climatological fallback)
 # ---------------------------------------------------------------------------
 
@@ -933,7 +1083,8 @@ def load_all_data(
     Combine everything into a single feature matrix X and ground-truth dict.
 
     Args:
-        rrs_level: "L3" for gridded 0.1-deg daily, "L2" for swath-level ~1 km.
+        rrs_level: "L3" for gridded 0.1-deg daily, "L2" for swath-level ~1 km,
+                   or "L2-interp" for neighborhood-averaged L2 within a radius.
                    Kramer source always uses in-situ Rrs regardless.
         strict_qc: If True, apply strict QC filters (negative Rrs, HPLC bounds,
                    spectral shape, GSM MAPD threshold, tighter temporal window).
@@ -978,19 +1129,29 @@ def load_all_data(
             sst_dir = PROJECT_ROOT / src["sst_dir"]
             sss_dir = PROJECT_ROOT / src["sss_dir"]
 
-            if rrs_level == "L2":
+            if rrs_level in ("L2", "L2-interp"):
                 l2_rrs_dir_str = src.get("l2_rrs_dir")
                 if not l2_rrs_dir_str:
                     print(f"  Skipping {name}: no l2_rrs_dir configured")
                     continue
                 l2_rrs_dir = PROJECT_ROOT / l2_rrs_dir_str
-                l2_cfg = CONFIG["multi_source"]["l2"]
-                matchup_df = load_l2_rrs_matchups(
-                    l2_rrs_dir, hplc_df, spectral_cfg, l2_cfg,
-                )
-                if matchup_df.empty:
-                    print(f"  Skipping {name}: no L2 matchups (run download_l2_rrs.py?)")
-                    continue
+
+                if rrs_level == "L2-interp":
+                    l2i_cfg = CONFIG["multi_source"]["l2_interp"]
+                    matchup_df = load_l2_interp_rrs_matchups(
+                        l2_rrs_dir, hplc_df, spectral_cfg, l2i_cfg,
+                    )
+                    if matchup_df.empty:
+                        print(f"  Skipping {name}: no L2-interp matchups (run download_l2_rrs.py?)")
+                        continue
+                else:
+                    l2_cfg = CONFIG["multi_source"]["l2"]
+                    matchup_df = load_l2_rrs_matchups(
+                        l2_rrs_dir, hplc_df, spectral_cfg, l2_cfg,
+                    )
+                    if matchup_df.empty:
+                        print(f"  Skipping {name}: no L2 matchups (run download_l2_rrs.py?)")
+                        continue
             else:
                 rrs_dir = PROJECT_ROOT / src["rrs_dir"]
                 # Strict QC can tighten the temporal window (e.g. ±3d → ±1d)
@@ -1362,8 +1523,9 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description="Multi-Source 5-Fold CV")
     parser.add_argument(
-        "--rrs-level", choices=["L3", "L2"], default="L3",
-        help="Satellite Rrs resolution: L3 (0.1-deg gridded) or L2 (~1 km swath)",
+        "--rrs-level", choices=["L3", "L2", "L2-interp"], default="L3",
+        help="Satellite Rrs resolution: L3 (0.1-deg gridded), L2 (~1 km swath), "
+             "or L2-interp (neighborhood-averaged L2 within 3 km radius)",
     )
     parser.add_argument(
         "--no-tchla-conditioning", action="store_true",
@@ -1382,7 +1544,8 @@ def main() -> None:
 
     # Set output directory based on Rrs level, Tchla conditioning, and QC mode
     chl_on = CONFIG.get("chl_conditioning", {}).get("enabled", False)
-    suffix = f"multi_source_cv{'_l2' if rrs_level == 'L2' else ''}"
+    level_suffix = {"L2": "_l2", "L2-interp": "_l2_interp"}.get(rrs_level, "")
+    suffix = f"multi_source_cv{level_suffix}"
     if not chl_on:
         suffix += "_no_tchla"
     if args.strict_qc:

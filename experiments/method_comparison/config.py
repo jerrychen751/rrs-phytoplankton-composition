@@ -217,6 +217,26 @@ CONFIG = {
             "min_finite_fraction": 0.95,
             "max_granules_per_obs": 5,
         },
+        # L2-interp: neighborhood-averaged L2 matchup.
+        # Uses the same L2 granules as "l2" but computes the median Rrs
+        # spectrum from all valid pixels within radius_km of the station.
+        # This reduces single-pixel noise while preserving finer spatial
+        # resolution than L3 (~3 km effective footprint vs ~11 km).
+        "l2_interp": {
+            "time_window_hours": 12,
+            # 3 km radius → ~28 candidate pixels (π·3²) at ~1 km spacing.
+            # Large enough for a stable median, small enough to stay well
+            # below L3's ~11 km effective footprint.
+            "radius_km": 3.0,
+            # Median of ≥5 values has ~40% breakdown point (robust to
+            # outliers). Below 5, a single bad pixel could dominate.
+            "min_valid_pixels": 5,
+            # Same QC as L2 for controlled comparison.
+            "qc_exclude_bits": [0, 1, 3, 4, 8, 9, 14, 16, 25, 26],
+            "min_finite_fraction": 0.95,
+            "max_granules_per_obs": 5,
+            "max_distance_km": 5.0,
+        },
     },
     "cv": {
         # LOOCV — used by pax_coastal_cv.py
